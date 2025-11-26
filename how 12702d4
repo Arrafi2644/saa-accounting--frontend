@@ -1,0 +1,17 @@
+[33m73436a5[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;32mrecovery[m[33m)[m HEAD@{0}: reset: moving to recovery
+[33m12702d4[m HEAD@{1}: checkout: moving from recovery to main
+[33m73436a5[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;32mrecovery[m[33m)[m HEAD@{2}: checkout: moving from 4d7e4f17b9aa9a790514de620600f23df0f8dbf0 to recovery
+[33m4d7e4f1[m HEAD@{3}: commit: a
+[33mb09f9a0[m HEAD@{4}: pull origin main --rebase (start): checkout b09f9a0455e88b13fa9a4c8dc89fc32eff8fd55a
+[33m12702d4[m HEAD@{5}: rebase (abort): returning to refs/heads/main
+[33mb09f9a0[m HEAD@{6}: pull origin main --rebase (start): checkout b09f9a0455e88b13fa9a4c8dc89fc32eff8fd55a
+[33m12702d4[m HEAD@{7}: rebase (abort): returning to refs/heads/main
+[33m73436a5[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;32mrecovery[m[33m)[m HEAD@{8}: commit: Solve conflict
+[33mb09f9a0[m HEAD@{9}: pull origin main --rebase (start): checkout b09f9a0455e88b13fa9a4c8dc89fc32eff8fd55a
+[33m12702d4[m HEAD@{10}: Branch: renamed refs/heads/master to refs/heads/main
+[33m12702d4[m HEAD@{12}: commit: Complete dashboard layout and show sidebar base on role
+[33ma3d4e88[m HEAD@{13}: commit: Show dynamically routes for sidebar base on role
+[33m7de9bb1[m HEAD@{14}: commit: Configure redux, axios and successfully login complete
+[33m39fb475[m HEAD@{15}: commit: Add login form
+[33mb901ff6[m HEAD@{16}: commit: Complete besic setup
+[33m1d21524[m HEAD@{17}: commit (initial): Initial commit from Create Next App
