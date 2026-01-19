@@ -46,7 +46,7 @@ export default function UserDetailsModal({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md p-0 overflow-hidden rounded-2xl border-0 shadow-2xl">
+      <DialogContent className="sm:max-w-md p-0 rounded-2xl border-0 shadow-2xl">
           {/* Hidden title required for accessibility */}
   <VisuallyHidden>
     <DialogHeader>
@@ -56,16 +56,12 @@ export default function UserDetailsModal({
       </DialogDescription>
     </DialogHeader>
   </VisuallyHidden>
-        {/* Gradient Header */}
-        <div className="relative h-32 bg-gradient-to-br from-purple-600 via-pink-500 to-rose-500">
-          <div className="absolute inset-0 bg-black/20" />
-        </div>
 
-        <DialogHeader className="px-6 pt-2 pb-4 -mt-16 relative">
+        <DialogHeader className="px-6 pt-2 pb-4 relative ">
           <div className="flex flex-col items-center text-center">
             <Avatar className="h-28 w-28 ring-8 ring-white shadow-2xl border-4 border-white">
               <AvatarImage className="object-cover" src={user?.picture} alt={user.name} />
-              <AvatarFallback className="text-3xl font-bold bg-gradient-to-br from-purple-500 to-pink-500 text-white">
+              <AvatarFallback className="text-3xl font-bold bg-linear-to-br from-purple-500 to-pink-500 text-white">
                 {user.name?.[0]?.toUpperCase()}
               </AvatarFallback>
             </Avatar>
@@ -86,9 +82,9 @@ export default function UserDetailsModal({
                   <div className="p-2 bg-blue-100 rounded-lg">
                     <Mail className="h-5 w-5 text-blue-600" />
                   </div>
-                  <span className="font-medium text-gray-600">Email</span>
+                  <span className="font-medium text-[#65758B]">Email</span>
                 </div>
-                <span className="text-right max-w-[180px] break-all font-medium text-gray-900">
+                <span className="text-right max-w-[180px] break-all font-medium text-[#002047]">
                   {user.email || "Not provided"}
                 </span>
               </div>
@@ -100,7 +96,7 @@ export default function UserDetailsModal({
                   <div className="p-2 bg-purple-100 rounded-lg">
                     <Shield className="h-5 w-5 text-purple-600" />
                   </div>
-                  <span className="font-medium text-gray-600">Role</span>
+                  <span className="font-medium text-[#65758B]">Role</span>
                 </div>
                 <Badge 
                   variant={user.role === "ADMIN" ? "destructive" : "secondary"}
@@ -118,9 +114,9 @@ export default function UserDetailsModal({
                       <div className="p-2 bg-orange-100 rounded-lg">
                         <Calendar className="h-5 w-5 text-orange-600" />
                       </div>
-                      <span className="font-medium text-gray-600">Joined</span>
+                      <span className="font-medium text-[#65758B]">Joined</span>
                     </div>
-                    <span className="font-medium text-gray-900">
+                    <span className="font-medium text-[#002047]">
                       {new Date(user.createdAt).toLocaleDateString("en-US", {
                         month: "long",
                         year: "numeric"

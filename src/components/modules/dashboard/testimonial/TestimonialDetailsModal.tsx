@@ -7,9 +7,9 @@ import {
     DialogTitle,
     DialogDescription,
 } from "@/components/ui/dialog";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { ITestimonial } from "@/types";
-import { Star } from "lucide-react";
+import { Star, User } from "lucide-react";
 
 interface TestimonialDetailsModalProps {
     open: boolean;
@@ -33,15 +33,13 @@ const TestimonialDetailsModal = ({
                 </DialogHeader>
 
                 <div className="flex flex-col items-center gap-3">
-                    <Avatar className="w-20 h-20">
-                        <AvatarImage src={testimonial.photoUrl} alt={testimonial.fullName} />
-                        <AvatarFallback>
-                            {testimonial.fullName?.slice(0, 2).toUpperCase()}
+                    <Avatar className="w-20 h-20 border">
+                        <AvatarFallback className="flex flex-col">
+                            <User />
                         </AvatarFallback>
                     </Avatar>
 
-                    <h2 className="text-lg font-semibold">{testimonial.fullName}</h2>
-                    <p className="text-sm text-muted-foreground">{testimonial.email}</p>
+                    <h2 className="text-lg font-semibold">{testimonial.clientName}</h2>
 
                     {/* Rating */}
                     <div className="flex gap-1 text-yellow-500">
@@ -97,7 +95,7 @@ const TestimonialDetailsModal = ({
                 <div className="border rounded-md p-4">
                     <h3 className="font-medium mb-2">Message</h3>
                     <p className="text-sm text-muted-foreground whitespace-pre-line">
-                        {testimonial.message}
+                        {testimonial.content}
                     </p>
                 </div>
             </DialogContent>

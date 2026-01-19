@@ -1,6 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 
-import type React from "react"
 import {
   useCallback,
   useRef,
@@ -25,13 +25,13 @@ export type FileWithPreview = {
 }
 
 export type FileUploadOptions = {
-  maxFiles?: number // Only used when multiple is true, defaults to Infinity
-  maxSize?: number // in bytes
+  maxFiles?: number
+  maxSize?: number 
   accept?: string
-  multiple?: boolean // Defaults to false
+  multiple?: boolean 
   initialFiles?: FileMetadata[]
-  onFilesChange?: (files: FileWithPreview[]) => void // Callback when files change
-  onFilesAdded?: (addedFiles: FileWithPreview[]) => void // Callback when new files are added
+  onFilesChange?: (files: FileWithPreview[]) => void
+  onFilesAdded?: (addedFiles: FileWithPreview[]) => void 
 }
 
 export type FileUploadState = {
@@ -54,7 +54,6 @@ export type FileUploadActions = {
   getInputProps: (
     props?: InputHTMLAttributes<HTMLInputElement>
   ) => InputHTMLAttributes<HTMLInputElement> & {
-    // Use `any` here to avoid cross-React ref type conflicts across packages
     ref: any
   }
 }

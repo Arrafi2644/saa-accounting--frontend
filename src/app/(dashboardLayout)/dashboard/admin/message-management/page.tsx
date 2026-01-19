@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
@@ -13,17 +14,23 @@ import { ColumnDef } from "@tanstack/react-table";
 import { useDeleteMessageMutation, useGetAllMessagesQuery } from "@/redux/features/message/message.api";
 import MessageDetailsModal from "@/components/modules/dashboard/MessageDetailsModal";
 import MessageToolbar from "@/components/modules/dashboard/message/MessageToolbar";
+import TablePagination from "@/components/modules/shared/tablePagination/TablePagination";
 
 
 const MessageManagementPage = () => {
     const [deleteMessage] = useDeleteMessageMutation();
-   const [searchTerm, setSearchTerm] = React.useState("");
+    const [searchTerm, setSearchTerm] = React.useState("");
+    const [page, setPage] = React.useState(1);
+    const limit = 10;
     const [sort, setSort] = React.useState("");
 
     const { data, isLoading, isError } = useGetAllMessagesQuery({
+        page,
+        limit,
         ...(searchTerm && { searchTerm }),
         ...(sort && { sort }),
     });
+
 
     const [selectedMessage, setSelectedMessage] = React.useState<IMessage | null>(null);
     const [openViewModal, setOpenViewModal] = React.useState(false);
@@ -47,7 +54,6 @@ const MessageManagementPage = () => {
     const columns: ColumnDef<IMessage>[] = [
         { accessorKey: "fullName", header: "Full Name" },
         { accessorKey: "email", header: "Email" },
-        { accessorKey: "phone", header: "Phone" },
         { accessorKey: "subject", header: "Subject" },
     ];
 
@@ -85,6 +91,13 @@ const MessageManagementPage = () => {
                 columns={columns}
                 data={data?.data ?? []}
                 actions={actions}
+            />
+
+            {/* Pagination */}
+            <TablePagination
+                currentPage={page}
+                totalPages={data?.meta?.totalPage ?? 1}
+                onPageChange={setPage}
             />
 
             {/* View Modal */}

@@ -1,5 +1,11 @@
 import { baseApi } from "../baseApi";
-import type { IResponse, GetQueryParams, ITestimonial } from "@/types";
+import type { IResponse, GetQueryParams, ITestimonial, IPaginationMeta } from "@/types";
+
+interface GetAllTestimonialResponse {
+  success: boolean;
+  data: ITestimonial[];
+  meta: IPaginationMeta;
+}
 
 export const testimonialApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -56,7 +62,7 @@ export const testimonialApi = baseApi.injectEndpoints({
 
     // ⭐ GET ALL TESTIMONIALS (Supports Filtering + Pagination)
     getAllTestimonials: builder.query<
-      IResponse<ITestimonial[]>,
+      GetAllTestimonialResponse,
       GetQueryParams
     >({
       query: (params) => ({

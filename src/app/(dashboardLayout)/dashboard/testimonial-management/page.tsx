@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import React from "react";
@@ -17,6 +18,8 @@ import {
 import { ITestimonial } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { toast } from "sonner";
+import FeaturedToggle from "@/components/modules/dashboard/testimonial/FeaturedToggle";
+import TablePagination from "@/components/modules/shared/tablePagination/TablePagination";
 
 const TestimonialManagementPage = () => {
   const [deleteTestimonial] = useDeleteTestimonialMutation();
@@ -24,12 +27,15 @@ const TestimonialManagementPage = () => {
   // Filters
   const [searchTerm, setSearchTerm] = React.useState("");
   const [sort, setSort] = React.useState("");
+  const [page, setPage] = React.useState(1);
+  const limit = 10;
 
   const { data, isLoading, isError } = useGetAllTestimonialsQuery({
+    page,
+    limit,
     ...(searchTerm && { searchTerm }),
     ...(sort && { sort }),
   });
-
   // Modal states
   const [selectedTestimonial, setSelectedTestimonial] =
     React.useState<ITestimonial | null>(null);
@@ -46,24 +52,33 @@ const TestimonialManagementPage = () => {
     try {
       const res = await deleteTestimonial(testimonial._id).unwrap();
       if (res.success) {
+          await fetch("/api/revalidate/testimonials", { method: "POST" });
         toast.success("Testimonial deleted successfully");
       }
-    } catch (error) {
+    } catch (error: any) {
       toast.error("Failed to delete testimonial");
+      console.log(error);
     }
   };
 
   // Table columns
   const columns: ColumnDef<ITestimonial>[] = [
-    { accessorKey: "fullName", header: "Name" },
-    { accessorKey: "email", header: "Email" },
+    { accessorKey: "clientName", header: "Name" },
+    { accessorKey: "companyName", header: "Company" },
     { accessorKey: "rating", header: "Rating" },
+    { accessorKey: "location", header: "location" },
 
     // Inline toggle for approval
     {
       accessorKey: "isApproved",
       header: "Approved",
       cell: ({ row }) => <ApprovalToggle testimonial={row.original} />,
+    },
+
+    {
+      accessorKey: "isFeatured",
+      header: "Featured",
+      cell: ({ row }) => <FeaturedToggle testimonial={row.original} />,
     },
   ];
 
@@ -103,6 +118,13 @@ const TestimonialManagementPage = () => {
         actions={actions}
       />
 
+      {/* Pagination */}
+      <TablePagination
+        currentPage={page}
+        totalPages={data?.meta?.totalPage ?? 1}
+        onPageChange={setPage}
+      />
+
       {/* View Modal */}
       {selectedTestimonial && (
         <TestimonialDetailsModal
@@ -117,7 +139,7 @@ const TestimonialManagementPage = () => {
         <DeleteAlert
           open={openDeleteAlert}
           onOpenChange={setOpenDeleteAlert}
-          description={`Are you sure you want to delete the testimonial from ${testimonialToDelete.fullName}? This action is permanent.`}
+          description={`Are you sure you want to delete the testimonial from ${testimonialToDelete.clientName}? This action is permanent.`}
           onConfirm={async () => {
             await handleDelete(testimonialToDelete);
             setOpenDeleteAlert(false);

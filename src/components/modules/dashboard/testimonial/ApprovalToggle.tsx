@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import React, { useState } from "react";
@@ -23,6 +24,7 @@ const ApprovalToggle: React.FC<ApprovalToggleProps> = ({ testimonial }) => {
       }).unwrap();
 
       if (res.success) {
+        await fetch("/api/revalidate/testimonials", { method: "POST" });
         toast.success(
           `Testimonial ${value ? "approved" : "disapproved"} successfully`
         );

@@ -1,5 +1,11 @@
 import { baseApi } from "../baseApi";
-import type { GetQueryParams, IResponse, ISEO } from "@/types";
+import type { GetQueryParams, IPaginationMeta, IResponse, ISEO } from "@/types";
+
+interface GetAllSEOsResponse {
+    success: boolean;
+    data: ISEO[];
+    meta: IPaginationMeta;
+}
 
 export const seoApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -13,17 +19,6 @@ export const seoApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["SEOS"],
     }),
-
-    // ⭐ UPDATE SEO
-// updateSeo: builder.mutation<{ success: boolean; data: ISEO }, { pagePath: string; data: Partial<ISEO> }>({
-//   query: ({ pagePath, data }) => ({
-//     url: `/seo/${encodeURIComponent(pagePath)}`, // include pagePath in URL
-//     method: "PATCH",
-//     data: data,
-//   }),
-//    invalidatesTags: ["SEOS"],
-// })
-// ,
 
 updateSeo: builder.mutation<{ success: boolean; data: ISEO }, { id: string; data: Partial<ISEO> }>({
   query: ({ id, data }) => ({
@@ -57,7 +52,7 @@ updateSeo: builder.mutation<{ success: boolean; data: ISEO }, { id: string; data
     }),
 
     // ⭐ GET ALL SEO
-    getAllSEO: builder.query<IResponse<ISEO[]>, GetQueryParams>({
+    getAllSEO: builder.query<GetAllSEOsResponse, GetQueryParams>({
       query: (params) => ({
         url: "/seo",
         method: "GET",

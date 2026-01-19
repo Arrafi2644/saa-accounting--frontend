@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
@@ -7,23 +8,27 @@ import DashboardPageHeader from "@/components/modules/dashboard/DashboardPageHea
 import { DynamicDataTable } from "@/components/modules/dashboard/DataTable";
 import { toast } from "sonner";
 
-import { IJoiningRequest } from "@/types";
 import DeleteAlert from "@/components/modules/dashboard/DeleteAlert";
 import { ColumnDef } from "@tanstack/react-table";
 import { useDeleteJoiningRequestMutation, useGetAllJoiningRequestsQuery } from "@/redux/features/joiningRequest/joiningRequest.api";
-import UserToolbar from "@/components/modules/dashboard/user/UserToolbar";
 import JoiningRequestDetailsModal from "@/components/modules/dashboard/joiningForm/JoiningRequestDetailsModal";
 import JoiningRequestToolbar from "@/components/modules/dashboard/joiningForm/JoiningRequestToolbar";
+import { IJoiningRequest } from "@/types";
+import TablePagination from "@/components/modules/shared/tablePagination/TablePagination";
 
 const JoinUsFormManagementPage = () => {
   const [deleteJoinUsForm] = useDeleteJoiningRequestMutation();
-    const [searchTerm, setSearchTerm] = React.useState("");
-      const [sort, setSort] = React.useState("");
-  
-      const { data, isLoading, isError } = useGetAllJoiningRequestsQuery({
-          ...(searchTerm && { searchTerm }),
-          ...(sort && { sort }),
-      });
+  const [searchTerm, setSearchTerm] = React.useState("");
+  const [sort, setSort] = React.useState("");
+  const [page, setPage] = React.useState(1);
+  const limit = 10;
+
+  const { data, isLoading, isError } = useGetAllJoiningRequestsQuery({
+    ...(searchTerm && { searchTerm }),
+    ...(sort && { sort }),
+    page,
+    limit,
+  });
 
   const [selectedForm, setSelectedForm] = React.useState<IJoiningRequest | null>(null);
   const [openViewModal, setOpenViewModal] = React.useState(false);
@@ -45,10 +50,10 @@ const JoinUsFormManagementPage = () => {
 
   // Table Columns
   const columns: ColumnDef<IJoiningRequest>[] = [
-    { accessorKey: "companyName", header: "Company Name" },
-    { accessorKey: "email", header: "Email" },
-    { accessorKey: "phoneBusiness", header: "Business Phone" },
-    { accessorKey: "phoneMobile", header: "Mobile" },
+    { accessorKey: "businessName", header: "Business Name" },
+    { accessorKey: "irdNumber", header: "IRD" },
+    { accessorKey: "emailAddress", header: "Email" },
+    { accessorKey: "phoneNumber", header: "Phone" },
   ];
 
 
@@ -84,6 +89,13 @@ const JoinUsFormManagementPage = () => {
         columns={columns}
         data={data?.data ?? []}
         actions={actions}
+      />
+
+      {/* Pagination */}
+      <TablePagination
+        currentPage={page}
+        totalPages={data?.meta?.totalPage ?? 1}
+        onPageChange={setPage}
       />
 
       {/* View Modal */}

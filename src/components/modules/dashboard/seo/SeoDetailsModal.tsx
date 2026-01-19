@@ -1,8 +1,6 @@
 "use client";
 
-import React from "react";
 import { ISEO } from "@/types";
-import Image from "next/image";
 import {
   Dialog,
   DialogContent,
@@ -22,7 +20,7 @@ export default function SeoDetailsModal({ open, onOpenChange, seo }: SeoDetailsM
     return (
       <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded-md shadow-sm flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1">
         <span className="text-sm font-medium text-gray-500 dark:text-gray-400">{label}:</span>
-        <span className="text-gray-900 dark:text-gray-100 break-words">{value}</span>
+        <span className="text-[#002047] dark:text-gray-100 wrap-break-word">{value}</span>
       </div>
     );
   };
@@ -41,16 +39,15 @@ export default function SeoDetailsModal({ open, onOpenChange, seo }: SeoDetailsM
 
         <div className="flex flex-col gap-4">
           {renderField("Page Path", seo.pagePath)}
-          {renderField("Page Title", seo.pageTitle)}
-          {renderField("Page Description", seo.pageDescription)}
           {renderField("Meta Title", seo.metaTitle)}
           {renderField("Meta Description", seo.metaDescription)}
           {renderField("Meta Keywords", seo.metaKeywords)}
           {renderField("Canonical URL", seo.canonicalURL)}
           {renderField("OG Title", seo.ogTitle)}
           {renderField("OG Description", seo.ogDescription)}
+          {renderField("OG Image", seo.ogImage)}
 
-          {seo.ogImage && (
+          {/* {seo.ogImage && (
             <div className="flex flex-col items-center bg-gray-50 dark:bg-gray-800 p-3 rounded-md shadow-sm gap-2">
               <span className="text-sm font-medium text-gray-500 dark:text-gray-400">OG Image:</span>
               <div className="relative w-full max-w-md h-64 rounded-md overflow-hidden">
@@ -63,7 +60,7 @@ export default function SeoDetailsModal({ open, onOpenChange, seo }: SeoDetailsM
                 />
               </div>
             </div>
-          )}
+          )} */}
         </div>
       </DialogContent>
     </Dialog>

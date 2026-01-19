@@ -1,6 +1,12 @@
 import { IRegister, IRegisterResponse } from "@/types/auth.types";
 import { baseApi } from "../baseApi";
-import type { IUser, IUserApiResponse, IResponse, GetQueryParams } from "@/types";
+import type { IUser, IUserApiResponse, IResponse, GetQueryParams, IPaginationMeta } from "@/types";
+
+interface GetAllUsersResponse {
+    success: boolean;
+    data: IUser[];
+    meta: IPaginationMeta;
+}
 
 export const userApi = baseApi.injectEndpoints({
 
@@ -12,7 +18,7 @@ export const userApi = baseApi.injectEndpoints({
         method: "POST",
         data: userInfo
       }),
-      invalidatesTags: (result, error, arg) => ["USERS"], // function version
+      invalidatesTags: (result, error, arg) => ["USERS"],
     }),
 
     // UPDATE USER
@@ -52,7 +58,7 @@ export const userApi = baseApi.injectEndpoints({
       providesTags: (result, error, id) => [{ type: "USER", id }],
     }),
 
-    getAllUsers: builder.query<IResponse<IUser[]>, GetQueryParams>({
+    getAllUsers: builder.query<GetAllUsersResponse, GetQueryParams>({
       query: (params) => ({
         url: "/user",
         method: "GET",

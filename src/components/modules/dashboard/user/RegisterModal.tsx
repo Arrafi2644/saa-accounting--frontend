@@ -1,76 +1,3 @@
-// import { useId } from "react"
-
-// import { Button } from "@/components/ui/button"
-// import {
-//   Dialog,
-//   DialogContent,
-//   DialogDescription,
-//   DialogHeader,
-//   DialogTitle,
-//   DialogTrigger,
-// } from "@/components/ui/dialog"
-// import { Input } from "@/components/ui/input"
-// import { Label } from "@/components/ui/label"
-// import { Plus } from "lucide-react"
-
-// export default function RegisterModal() {
-//   const id = useId()
-//   return (
-//     <Dialog>
-//       <DialogTrigger asChild>
-//         <Button size="sm"> <Plus /> Add User</Button>
-//       </DialogTrigger>
-//       <DialogContent>
-//         <div className="flex flex-col items-center gap-2">
-//           <DialogHeader>
-//             <DialogTitle className="sm:text-center">
-//               Add New User
-//             </DialogTitle>
-//             <DialogDescription className="sm:text-center">
-//               We just need a few details to get you started.
-//             </DialogDescription>
-//           </DialogHeader>
-//         </div>
-
-//         <form className="space-y-5">
-//           <div className="space-y-4">
-//             <div className="*:not-first:mt-2">
-//               <Label htmlFor={`${id}-name`}>Full name</Label>
-//               <Input
-//                 id={`${id}-name`}
-//                 placeholder="Matt Welsh"
-//                 type="text"
-//                 required
-//               />
-//             </div>
-//             <div className="*:not-first:mt-2">
-//               <Label htmlFor={`${id}-email`}>Email</Label>
-//               <Input
-//                 id={`${id}-email`}
-//                 placeholder="hi@yourcompany.com"
-//                 type="email"
-//                 required
-//               />
-//             </div>
-//             <div className="*:not-first:mt-2">
-//               <Label htmlFor={`${id}-password`}>Password</Label>
-//               <Input
-//                 id={`${id}-password`}
-//                 placeholder="Enter your password"
-//                 type="password"
-//                 required
-//               />
-//             </div>
-//           </div>
-//           <Button type="button" className="w-full">
-//             Create User
-//           </Button>
-//         </form>
-//       </DialogContent>
-//     </Dialog>
-//   )
-// }
-
 
 "use client";
 
@@ -126,20 +53,20 @@ export default function RegisterModal() {
     },
   });
 
-const onSubmit = async (data: RegisterValues) => {
-  try {
-    const res = await register(data).unwrap();
+  const onSubmit = async (data: RegisterValues) => {
+    try {
+      const res = await register(data).unwrap();
 
-    if (res.success) {
-      toast.success("User created successfully!");
-      form.reset();
-      setOpen(false);
+      if (res.success) {
+        toast.success("User created successfully!");
+        form.reset();
+        setOpen(false);
+      }
+    } catch (error) {
+      toast.error("Failed to create user");
+      console.log(error);
     }
-  } catch (error) {
-    toast.error("Failed to create user");
-    console.log(error);
-  }
-};
+  };
 
 
 
@@ -228,8 +155,10 @@ const onSubmit = async (data: RegisterValues) => {
             />
 
             {/* Submit Button */}
-            <Button type="submit" className="w-full">
-              Create User
+            <Button
+              disabled={isLoading}
+              type="submit" className="w-full">
+              {isLoading ? "User Creating..." : "Create User"}
             </Button>
           </form>
         </Form>

@@ -1,6 +1,11 @@
 import { baseApi } from "../baseApi";
-import type { GetQueryParams, IMessage, IResponse } from "@/types";
+import type { IMessage, IPaginationMeta, IResponse } from "@/types";
 
+interface GetAllMessagesResponse {
+    success: boolean;
+    data: IMessage[];
+    meta: IPaginationMeta;
+}
 
 export const messageApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
@@ -36,15 +41,21 @@ export const messageApi = baseApi.injectEndpoints({
             providesTags: (result, error, id) => [{ type: "MESSAGE", id }],
         }),
 
-         // ⭐ GET All MESSAGE
-        getAllMessages: builder.query<IResponse<IMessage[]>, GetQueryParams>({
-            query: (params) => ({
-                url: "/message",
-                method: "GET",
-                params, // <- this will automatically append as query string
+        // ⭐ GET All MESSAGE
+        getAllMessages: builder.query<GetAllMessagesResponse,
+            {
+                page?: number;
+                limit?: number;
+                searchTerm?: string;
+                sort?: string;
+            }>({
+                query: (params) => ({
+                    url: "/message",
+                    method: "GET",
+                    params, // <- this will automatically append as query string
+                }),
+                providesTags: ["MESSAGES"],
             }),
-            providesTags: ["MESSAGES"],
-        }),
 
 
     }),

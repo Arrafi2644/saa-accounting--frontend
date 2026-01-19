@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
@@ -6,28 +7,28 @@ import DashboardManagementPageSkeleton from "@/components/modules/dashboard/Dash
 import DashboardPageHeader from "@/components/modules/dashboard/DashboardPageHeader";
 import { DynamicDataTable } from "@/components/modules/dashboard/DataTable";
 import { toast } from "sonner";
-
-
 import DeleteAlert from "@/components/modules/dashboard/DeleteAlert";
-
 import { ColumnDef } from "@tanstack/react-table";
 import { useDeleteSEOMutation, useGetAllSEOQuery } from "@/redux/features/seo/seo.api";
 import { ISEO } from "@/types";
 import SeoToolbar from "@/components/modules/dashboard/seo/SeoToolBar";
 import UpdateSeoModal from "@/components/modules/dashboard/seo/SeoUpdateModal";
 import SeoDetailsModal from "@/components/modules/dashboard/seo/SeoDetailsModal";
-
-
+import TablePagination from "@/components/modules/shared/tablePagination/TablePagination";
 
 const SeoManagementPage = () => {
   const [deleteSeo] = useDeleteSEOMutation();
 
   const [searchTerm, setSearchTerm] = React.useState("");
   const [sort, setSort] = React.useState("");
+  const [page, setPage] = React.useState(1);
+  const limit = 10;
 
   const { data, isLoading, isError } = useGetAllSEOQuery({
     ...(searchTerm && { searchTerm }),
     ...(sort && { sort }),
+    page,
+    limit,
   });
 
   const [selectedSeo, setSelectedSeo] = React.useState<ISEO | null>(null);
@@ -44,6 +45,7 @@ const SeoManagementPage = () => {
     try {
       const res: any = await deleteSeo(item.pagePath as string);
       if (res?.data?.success) {
+        await fetch("/api/revalidate/seos", { method: "POST" });
         toast.success("SEO data deleted successfully!");
       }
     } catch (error) {
@@ -52,20 +54,18 @@ const SeoManagementPage = () => {
   };
 
   // Table Columns
-// Table Columns
-const columns: ColumnDef<ISEO>[] = [
-  { accessorKey: "pagePath", header: "Page Path" },
-  { accessorKey: "pageTitle", header: "Page Title" },
-  { accessorKey: "metaTitle", header: "Meta Title" },
-  {
-    accessorKey: "metaDescription",
-    header: "Meta Description",
-    cell: ({ row }) => (
-      <span className="line-clamp-1">{row.original.metaDescription}</span>
-    ),
-  },
+  const columns: ColumnDef<ISEO>[] = [
+    { accessorKey: "pagePath", header: "Page Path" },
+    { accessorKey: "metaTitle", header: "Meta Title" },
+    // {
+    //   accessorKey: "metaDescription",
+    //   header: "Meta Description",
+    //   cell: ({ row }) => (
+    //     <span className="line-clamp-1">{row.original.metaDescription}</span>
+    //   ),
+    // },
 
-];
+  ];
 
   // Table Row Actions
   const actions = [
@@ -96,7 +96,7 @@ const columns: ColumnDef<ISEO>[] = [
   if (isError) return <p>Error loading SEO data.</p>;
 
   return (
-    <div>
+    <div className="">
       <DashboardPageHeader title="SEO Management" />
       <SeoToolbar onSearchChange={setSearchTerm} onSortChange={setSort} />
 
@@ -104,6 +104,12 @@ const columns: ColumnDef<ISEO>[] = [
         columns={columns}
         data={data?.data ?? []}
         actions={actions}
+      />
+      {/* Pagination */}
+      <TablePagination
+        currentPage={page}
+        totalPages={data?.meta?.totalPage ?? 1}
+        onPageChange={setPage}
       />
 
       {/* View Modal */}

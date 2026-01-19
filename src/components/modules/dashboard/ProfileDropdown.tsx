@@ -13,21 +13,19 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { ProfileAvatar } from "./ProfileAvatar"
 import Link from "next/link"
-import { useLogoutMutation } from "@/redux/features/auth/auth.api"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
 import { LogOut, User2 } from "lucide-react"
+import { logoutUser } from "@/lib/logoutUser"
 
 export function ProfileDropdown() {
-  const [logout] = useLogoutMutation()
   const router = useRouter()
 
   const handleLogout = async () => {
-    const res = await logout(undefined).unwrap()
-    if (res.success === true) {
-      toast.success("Logout successful")
-      router.push("/")
-    }
+    logoutUser()
+    toast.success("Logout successful")
+    router.push("/")
+
   }
 
   return (
@@ -46,7 +44,7 @@ export function ProfileDropdown() {
         <DropdownMenuGroup>
           <DropdownMenuItem asChild>
             <Link href="/dashboard/profile">
-              <User2/>
+              <User2 />
               Profile
               <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
             </Link>
@@ -56,7 +54,7 @@ export function ProfileDropdown() {
         <DropdownMenuSeparator />
 
         <DropdownMenuItem onClick={handleLogout}>
-          <LogOut/>
+          <LogOut />
           Log out
           <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
         </DropdownMenuItem>

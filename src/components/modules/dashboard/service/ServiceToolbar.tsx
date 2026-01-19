@@ -1,6 +1,7 @@
 import Sort from "@/components/Sort";
 import { SearchForm } from "@/components/search-form";
-import CreateServiceTypeModal from "../serviceType/CreateServiceTypeModal";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 const ServiceToolbar = ({
   onSearchChange,
@@ -16,7 +17,9 @@ const ServiceToolbar = ({
          <Sort onChange={onSortChange} />
        </div>
  
-       <CreateServiceTypeModal />
+       <Button>
+        <Link href="/dashboard/service-management/create-service">Create Service</Link>
+       </Button>
      </div>
   );
 };

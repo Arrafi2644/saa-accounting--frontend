@@ -1,18 +1,11 @@
 export type UserRole = "ADMIN" | "EDITOR";
 
-// exact : ["/my-profile", "settings"]
-//   patterns: [/^\/dashboard/, /^\/patient/], // Routes starting with /dashboard/* /patient/*
 export type RouteConfig = {
     exact: string[],
     patterns: RegExp[],
 }
 
 export const authRoutes = ["/login"];
-
-// export const commonProtectedRoutes: RouteConfig = {
-//     exact: ["/manage-service", "/settings"],
-//     patterns: [], // [/password/change-password, /password/reset-password => /password/*]
-// }
 
 export const adminProtectedRoutes: RouteConfig = {
   patterns: [/^\/dashboard\/admin/],   // ✔ Matches /dashboard/admin/*
@@ -33,7 +26,6 @@ export const isRouteMatches = (pathname: string, routes: RouteConfig): boolean =
         return true;
     }
     return routes.patterns.some((pattern: RegExp) => pattern.test(pathname))
-    // if pathname === /dashboard/my-appointments => matches /^\/dashboard/ => true
 }
 
 export const getRouteOwner = (pathname: string): "ADMIN" | "COMMON" | null => {
@@ -48,7 +40,7 @@ export const getRouteOwner = (pathname: string): "ADMIN" | "COMMON" | null => {
 
 export const getDefaultDashboardRoute = (role: UserRole): string => {
     if (role === "ADMIN") {
-        return "/dashboard/admin";
+        return "/dashboard";
     }
 
     if (role === "EDITOR") {

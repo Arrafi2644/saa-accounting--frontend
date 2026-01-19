@@ -1,5 +1,11 @@
 import { baseApi } from "../baseApi";
-import type { GetQueryParams, IJoiningRequest, IResponse } from "@/types";
+import type { GetQueryParams, IJoiningRequest, IPaginationMeta, IResponse } from "@/types";
+
+interface GetAllJoiningRequestsResponse {
+    success: boolean;
+    data: IJoiningRequest[];
+    meta: IPaginationMeta;
+}
 
 export const joiningRequestApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -39,7 +45,7 @@ export const joiningRequestApi = baseApi.injectEndpoints({
     }),
 
     // ⭐ GET ALL JOINING REQUESTS
-    getAllJoiningRequests: builder.query<IResponse<IJoiningRequest[]>, GetQueryParams>({
+    getAllJoiningRequests: builder.query<GetAllJoiningRequestsResponse, GetQueryParams>({
       query: (params) => ({
         url: "/join-us-form",
         method: "GET",

@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { SearchForm } from "@/components/search-form";
 import RegisterModal from "@/components/modules/dashboard/user/RegisterModal";
 import Sort from "@/components/Sort";

@@ -17,12 +17,15 @@ import {
 import { useUserInfoQuery } from "@/redux/features/auth/auth.api";
 import { getSidebarData } from "@/utils/getSidebarData";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
+import { useGetSiteInfoQuery } from "@/redux/features/siteInfo/siteInfo.api";
 
 
 export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
   const pathname = usePathname();
   const { data, isLoading, isError } = useUserInfoQuery(undefined);
-
+  const { data: siteInfoData } = useGetSiteInfoQuery(undefined);
+  const siteInfo = siteInfoData?.data;
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-full text-sm text-muted-foreground">
@@ -44,10 +47,16 @@ export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
 
   return (
     <Sidebar {...props}>
-      <SidebarHeader>
-        <h2 className="text-lg font-semibold px-2">
-          {role === "ADMIN" ? "Admin Dashboard" : "Editor Dashboard"}
-        </h2>
+      <SidebarHeader className="ml-5">
+        <Link href="/">
+          <Image
+            src={siteInfo?.mainLogo ? siteInfo?.mainLogo : "https://res.cloudinary.com/dog2ins5h/image/upload/v1766768290/Saa-Logo-Final-v2-c_owooet.png"}
+            alt="SAA Accounting Logo"
+            width={100}
+            height={80}
+            priority
+          />
+        </Link>
       </SidebarHeader>
 
       <SidebarContent>
@@ -62,8 +71,8 @@ export function AppSidebar(props: React.ComponentProps<typeof Sidebar>) {
                       <Link
                         href={item.url}
                         className={`w-full flex items-center gap-2 text-sm transition-colors ${pathname === item.url
-                            ? "text-foreground bg-background font-semibold"
-                            : "text-muted-foreground hover:text-foreground"
+                          ? "text-foreground bg-background font-semibold"
+                          : "text-muted-foreground hover:text-foreground"
                           }`}
                       >
                         {item.icon && <item.icon className="w-4 h-4" />} {/* Render icon */}

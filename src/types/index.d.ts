@@ -41,32 +41,16 @@ export interface IUserApiResponse {
 }
 
 export interface IJoiningRequest {
-  _id?: string;
-  companyName: string;
-  companyDate: string;
-  companyIRD: string;
-
-  director1: {
-    name: string;
-    position: string;
-    date: string;
-    ird: string;
-  };
-
-  director2: {
-    name: string;
-    position: string;
-    date: string;
-    ird: number;
-  };
-
-  address: string;
-  phoneBusiness: string;
-  phoneHome: string;
-  phoneMobile: string;
-  email: string;
-  isHuman: boolean;
-  createdAt: string
+  _id: string;
+  businessName: string;
+  directorsAndShareholders: string;
+  irdNumber: string;
+  fullName: string;
+  phoneNumber: string;
+  emailAddress: string;
+  authorityConsent: boolean;
+  documents: string[];
+  createdAt?: string;
 }
 
 // For selecting Service Type
@@ -76,31 +60,6 @@ export interface IServiceType {
   description?: string;
 }
 
-
-export interface IService {
-  _id?: string;
-  title: string;
-  slug: string;
-  description?: string;
-  images?: string[];
-  included?: string[];
-  excluded?: string[];
-  amenities?: string[];
-  servicePlan?: string[];
-
-  subServices?: ISubService[];
-
-  serviceType: {
-    _id: string,
-    name: string
-  };
-
-  createdAt?: string;
-  updatedAt?: string;
-
-  // For deleting specific images
-  deleteImages?: string[];
-}
 
 // Sub Service Type
 export interface ISubService {
@@ -120,18 +79,9 @@ export interface IServiceListApiResponse {
   data: IService[];
 }
 
-export interface IReferralForm {
-  _id?: string
-  referralName: string;
-  yourName: string;
-  referralEmail: string;
-  yourEmail: string;
-  referralPhone: string;
-  helpDescription: string;
-  referralAddress: string;
-  referralSuburb?: string;
-  isHuman: boolean;
-  createdAt?: string
+export interface INewsletter {
+  _id?: string;
+  email: string;
 }
 
 export interface IMessage {
@@ -153,30 +103,29 @@ export interface GetAllMessagesParams {
 export type GetQueryParams = {
   searchTerm?: string;
   sort?: string;
-  filter?: string;
   page?: number;
   limit?: number;
 };
 
 
 export interface ITestimonial {
-  _id?: string;
-  fullName: string;
-  email: string;
-  companyName?: string;
-  designation?: string;
+  _id?: string,
+  partnershipLabel: string;
   rating: number;
-  message: string;
-  photoUrl?: string;
+  content: string;
+  clientName: string;
+  designation?: string;
+  companyName: string;
+  location: string;
+  industry: string;
   isApproved?: boolean;
+  isFeatured?: boolean;
   createdAt?: sting
 }
 
 export interface ISEO {
   _id?: string;
   pagePath: string;
-  pageTitle: string;     
-  pageDescription: string;  
   metaTitle: string;
   metaDescription: string;
   metaKeywords?: string;
@@ -184,44 +133,157 @@ export interface ISEO {
   ogTitle?: string;
   ogDescription?: string;
   ogImage?: string;
-
   createdAt?: Date;
   updatedAt?: Date;
 }
 
 export interface ISiteInfo {
-  _id?: string;
-  // Site & Branding
   siteTitle?: string;
   siteTagline?: string;
-  logoUrl?: string;
-  faviconUrl?: string;
-
-  // Contact Details
-  adminEmail?: string;
+  mainLogo: string;
+  faviconLogo?: string;
+  footerLogo: string;
+  mainEmail?: string;
   supportEmail?: string;
   phone?: string;
   supportPhone?: string;
   address?: string;
-  businessHours?: {
-    days?: string[]; // e.g., ["Mon", "Tue"]
-    start?: string;  // "09:00"
-    end?: string;    // "17:00"
-  };
   mapEmbedUrl?: string;
-
-  // Social Media
-  social?: {
-    facebook?: string;
-    linkedin?: string;
-    youtube?: string;
-    twitter?: string;
-    instagram?: string;
-    tiktok?: string;
-    pinterest?: string;
-    whatsapp?: string;
-  };
+  facebook?: string;
+  linkedin?: string;
+  youtube?: string;
+  twitter?: string;
+  instagram?: string;
+  tiktok?: string;
+  pinterest?: string;
+  whatsapp?: string;
 }
+
+export interface ISiteInfoForPost {
+  siteTitle?: string;
+  siteTagline?: string;
+  mainLogo: File;
+  faviconLogo?: File;
+  footerLogo: File;
+  mainEmail?: string;
+  supportEmail?: string;
+  phone?: string;
+  supportPhone?: string;
+  address?: string;
+  mapEmbedUrl?: string;
+  facebook?: string;
+  linkedin?: string;
+  youtube?: string;
+  twitter?: string;
+  instagram?: string;
+  tiktok?: string;
+  pinterest?: string;
+  whatsapp?: string;
+}
+
 export interface ISiteInfoResponse {
   data: ISiteInfo
 }
+
+
+export interface IBanner {
+  title: string;
+  subtitle: string;
+}
+export interface IServiceOverview {
+  title: string;
+  description: string;
+  features: string[];
+  serviceImage: string;
+}
+
+export interface IFeature {
+  title: string;
+  description: string;
+  icon: string;
+}
+
+export interface IServiceMatter {
+  matterSectionTitle: string;
+  matterSectionSubTitle: string;
+  withoutSaaS: {
+    badgeTitle: string,
+    badgeIcon: string,
+    title: string,
+    items: {
+      icon: string;
+      text: string;
+    }[]
+  };
+  withSaaS: {
+    badgeTitle: string,
+    badgeIcon: string,
+    title: string,
+    items: {
+      icon: string;
+      text: string;
+    }[]
+  };
+}
+
+export interface IProcessStep {
+  stepNumber: number;
+  title: string;
+  description: string;
+  icon: string;
+}
+
+export interface IRequirementDoc {
+  title: string;
+  icon: string;
+}
+
+export interface IFaq {
+  question: string;
+  answer: string;
+}
+
+export interface IService {
+  _id?: string;
+  title: string;
+  slug?: string;
+  serviceSummary: string;
+  shortDescription: string;
+  serviceIcon: string;
+  banner: IBanner;
+  overView: IServiceOverview;
+  serviceMatter: IServiceMatter;
+  features: IFeature[];
+  processSteps: IProcessStep[];
+  requirementDocs: IRequirementDoc[];
+  faqs: IFaq[];
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface IArticle {
+  _id: string;
+  title: string;
+  description: string;
+  category: string;
+  icon: string;
+  readTime: number;
+}
+
+export interface ITool {
+  _id?: string;
+  title: string;
+  description: string;
+  icon: string;
+  status: "active" | "inactive";
+}
+
+export interface IPaginationMeta {
+  page: number;
+  limit: number;
+  total: number;
+  totalPage: number;
+}
+
+
+

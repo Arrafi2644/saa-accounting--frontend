@@ -14,29 +14,28 @@ import {
 
 import { ColumnDef } from "@tanstack/react-table";
 import { toast } from "sonner";
-import UserToolbar from "@/components/modules/dashboard/user/UserToolbar";
 import { IService } from "@/types";
 import React from "react";
-import ServiceDetailsModal from "@/components/modules/dashboard/service/ServiceDetailsModal";
+// import ServiceDetailsModal from "@/components/modules/dashboard/service/ServiceDetailsModal";
 import DeleteAlert from "@/components/modules/dashboard/DeleteAlert";
 import ServiceToolbar from "@/components/modules/dashboard/service/ServiceToolbar";
+import { useRouter } from "next/navigation";
+import TablePagination from "@/components/modules/shared/tablePagination/TablePagination";
+
 
 const ServiceManagementPage = () => {
   const [deleteService] = useDeleteServiceMutation();
- const [searchTerm, setSearchTerm] = React.useState("");
-    const [sort, setSort] = React.useState("");
+  const [searchTerm, setSearchTerm] = React.useState("");
+  const [sort, setSort] = React.useState("");
+  const [page, setPage] = React.useState(1);
+  const limit = 10;
 
-    const { data, isLoading, isError } = useGetAllServicesQuery({
-        ...(searchTerm && { searchTerm }),
-        ...(sort && { sort }),
-    });
-
-  //   States
-  const [selectedService, setSelectedService] = React.useState<IService | null>(null);
-  const [openViewModal, setOpenViewModal] = React.useState(false);
-
-  //   const [serviceToUpdate, setServiceToUpdate] = React.useState<IService | null>(null);
-  //   const [openUpdateModal, setOpenUpdateModal] = React.useState(false);
+  const { data, isLoading, isError } = useGetAllServicesQuery({
+    ...(searchTerm && { searchTerm }),
+    ...(sort && { sort }),
+    page,
+    limit,
+  });
 
   const [serviceToDelete, setServiceToDelete] = React.useState<IService | null>(null);
   const [openDeleteAlert, setOpenDeleteAlert] = React.useState(false);
@@ -46,42 +45,37 @@ const ServiceManagementPage = () => {
     try {
       const res = await deleteService(item._id as string);
       if (res?.data?.success) {
+        await Promise.all([
+          fetch("/api/revalidate/services", { method: "POST" }),
+          item?.slug
+            ? fetch(`/api/revalidate/service/${item.slug}`, { method: "POST" })
+            : Promise.resolve(),
+        ]);
         toast.success("Service deleted successfully");
       }
-    } catch (error) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
       toast.error("Failed to delete service");
+      console.log(error);
     }
   };
 
   //   Columns
-
   const columns: ColumnDef<IService>[] = [
     { accessorKey: "title", header: "Title" },
     { accessorKey: "slug", header: "Slug" },
 
-    {
-      header: "Service Type",
-      accessorFn: (row) => row.serviceType?.name ?? "N/A",
-    },
   ];
 
-
+  const router = useRouter()
   // Dynamic Actions
   const actions = [
     {
-      label: "View",
+      label: "Edit",
       onClick: (service: IService) => {
-        setSelectedService(service);
-        setOpenViewModal(true);
+        router.push(`/dashboard/service-management/update-service/${service.slug}`);
       },
     },
-    // {
-    //   label: "Edit",
-    //   onClick: (service: IService) => {
-    //     setServiceToUpdate(service);
-    //     setOpenUpdateModal(true);
-    //   },
-    // },
     {
       label: "Delete",
       onClick: (service: IService) => {
@@ -108,23 +102,12 @@ const ServiceManagementPage = () => {
         actions={actions}
       />
 
-      {/* VIEW MODAL */}
-      {selectedService && (
-        <ServiceDetailsModal
-          open={openViewModal}
-          onOpenChange={setOpenViewModal}
-          service={selectedService}
-        />
-      )}
-
-      {/* UPDATE MODAL */}
-      {/* {serviceToUpdate && (
-        <UpdateServiceModal
-          open={openUpdateModal}
-          onOpenChange={setOpenUpdateModal}
-          service={serviceToUpdate}
-        />
-      )} */}
+      {/* Pagination */}
+      <TablePagination
+        currentPage={page}
+        totalPages={data?.meta?.totalPage ?? 1}
+        onPageChange={setPage}
+      />
 
       {/* DELETE ALERT */}
       {serviceToDelete && (

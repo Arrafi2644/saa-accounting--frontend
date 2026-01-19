@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 "use client";
 
 import { z } from "zod";
@@ -23,10 +23,14 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useLoginMutation } from "@/redux/features/auth/auth.api";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { role } from "@/constants/role";
+import { loginUser } from "@/lib/loginUser";
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { ISiteInfo } from "@/types";
+import config from "@/config";
 
 const loginFormSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -34,56 +38,74 @@ const loginFormSchema = z.object({
 });
 
 export function LoginForm({ className, ...props }: React.ComponentProps<"div">) {
-  const [login, {isLoading}] = useLoginMutation()
 
   const form = useForm<z.infer<typeof loginFormSchema>>({
     resolver: zodResolver(loginFormSchema),
     defaultValues: {
-      email: "",
-      password: "",
+      email: "admin@gmail.com",
+      password: "admin1234",
     },
   });
   const router = useRouter();
-   
+  const [siteInfo, setSiteInfo] = useState<ISiteInfo | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [loadingSiteInfo, setLoadingSiteInfo] = useState(true);
 
-const onSubmit = async (data: z.infer<typeof loginFormSchema>) => {
-  console.log(data);
-
-  try {
-    const res = await login(data).unwrap();
-    console.log(res);
-
-    if (res.success === true) {
-      toast.success("Login successful.");
-
-      if (res.data.user.role === role.admin) {
-        router.push("/dashboard/admin/user-management");
-      } else if (res.data.user.role === role.editor) {
-        router.push("/dashboard/service-management");
-      } else {
-        router.push("/"); // default redirect if needed
+  useEffect(() => {
+    const fetchSiteInfo = async () => {
+      try {
+        const res = await fetch(`${config.baseUrl}/site-info`);
+        if (!res.ok) throw new Error("Failed to fetch site info");
+        const data = await res.json();
+        setSiteInfo(data.data);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoadingSiteInfo(false);
       }
+    };
+
+    fetchSiteInfo();
+  }, []);
+
+  const onSubmit = async (data: z.infer<typeof loginFormSchema>) => {
+    setLoading(true)
+    const res = await loginUser(data);
+
+    if (res.success) {
+      toast.success("Login successful!");
+      router.push("/dashboard");
+      setLoading(false)
+    } else {
+      toast.error(res.message || "Login failed!");
+      setLoading(false)
     }
-  } catch (error: any) {
-    console.log("login error ", error);
-    if(error.status === 401){
-      toast.error("Incorrect password");
-    }else if(error.status === 404){
-      toast.error("User not exist")
-    }else{
-      toast.error("Login failed! Try again")
-    }
+
+  };
+
+  if (loadingSiteInfo) {
+    return <p className="text-center mt-10">Loading login page...</p>;
   }
-};
 
   return (
     <div className={cn("flex justify-center items-center min-h-screen", className)} {...props}>
       <Card className="w-full max-w-md shadow-lg border border-gray-200">
         <CardHeader>
-          <CardTitle className="text-center text-3xl font-bold text-gray-900">
+          <div className="flex items-center justify-center">
+            <Link href="/">
+              <Image
+                src={siteInfo?.mainLogo ? siteInfo?.mainLogo : "https://res.cloudinary.com/dog2ins5h/image/upload/v1766768290/Saa-Logo-Final-v2-c_owooet.png"}
+                alt="SAA Accounting Logo"
+                width={80}
+                height={80}
+                priority
+              />
+            </Link>
+          </div>
+          <CardTitle className="text-center text-3xl font-bold text-[#002047]">
             Welcome Back
           </CardTitle>
-          <CardDescription className="text-center text-gray-600">
+          <CardDescription className="text-center text-[#65758B]">
             Enter your credentials to log in
           </CardDescription>
         </CardHeader>
@@ -118,8 +140,11 @@ const onSubmit = async (data: z.infer<typeof loginFormSchema>) => {
                 )}
               />
 
-              <Button type="submit" className="w-full">
-                Login
+              <Button disabled={loading} type="submit" className="w-full cursor-pointer">
+                {
+                  loading ? "Logging..." : "Login"
+                }
+                
               </Button>
             </form>
           </Form>

@@ -24,20 +24,22 @@ import {
 } from "recharts";
 
 // Color palette
-const COLORS = ["#6366F1", "#22C55E", "#F97316", "#06B6D4"]; 
+const COLORS = ["#6366F1", "#22C55E", "#F97316", "#06B6D4"];
 const BG_COLORS = ["bg-indigo-50", "bg-green-50", "bg-orange-50", "bg-sky-50"];
 const TEXT_COLORS = ["text-indigo-800", "text-green-800", "text-orange-800", "text-sky-800"];
 const TITLE_COLORS = ["text-indigo-700", "text-green-700", "text-orange-700", "text-sky-700"];
 
 const DashboardAnalyticsPage = () => {
   const { data } = useGetJoiningRequestStatsQuery();
+
   // Temporary static data for demo
-  const stats = {
-    totalRequest: 80,
-    requestInToday: 5,
-    requestInLast7Days: 16,
-    requestInLast30Days: 40
-  };
+  // const stats = {
+  //   totalRequest: 80,
+  //   requestInToday: 5,
+  //   requestInLast7Days: 16,
+  //   requestInLast30Days: 40
+  // };
+  const stats = data?.data;
 
   const chartData = [
     { name: "Today", value: stats?.requestInToday },
@@ -47,50 +49,48 @@ const DashboardAnalyticsPage = () => {
   ];
 
   const statsItems = [
-    { label: "Total Requests", value: stats.totalRequest },
-    { label: "Today's Requests", value: stats.requestInToday },
-    { label: "Last 7 Days", value: stats.requestInLast7Days },
-    { label: "Last 30 Days", value: stats.requestInLast30Days },
+    { label: "Total Requests", value: stats?.totalRequest },
+    { label: "Today's Requests", value: stats?.requestInToday },
+    { label: "Last 7 Days", value: stats?.requestInLast7Days },
+    { label: "Last 30 Days", value: stats?.requestInLast30Days },
   ];
 
   return (
     <div className="p-4 md:p-6 space-y-8">
       <h1 className="text-2xl md:text-3xl font-bold">Dashboard Analytics</h1>
 
-{/* ---------- Improved Responsive Stats Cards ---------- */}
-<div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 lg:gap-6 xl:gap-8">
-  {statsItems.map((item, index) => (
-    <Card
-      key={index}
-      className={`
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 lg:gap-6 xl:gap-8">
+        {statsItems.map((item, index) => (
+          <Card
+            key={index}
+            className={`
         py-3 md:py-4 lg:py-5
         transition-all duration-300 hover:scale-[1.02] hover:shadow-lg
         ${BG_COLORS[index]} 
         border border-white/20 dark:border-white/10
         rounded-2xl
       `}
-    >
-      {/* Optional: subtle gradient overlay for depth */}
-      <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none" />
+          >
+            <div className="absolute inset-0 bg-linear-to-br from-white/10 to-transparent pointer-events-none" />
 
-      <CardHeader className="p-4">
-        <CardTitle className={`
+            <CardHeader className="p-4">
+              <CardTitle className={`
         font-semibold
           ${TITLE_COLORS[index]}
         `}>
-          {item.label}
-        </CardTitle>
-      </CardHeader>
+                {item.label}
+              </CardTitle>
+            </CardHeader>
 
-      <CardContent className={`
+            <CardContent className={`
        font-semibold
         ${TEXT_COLORS[index]}
       `}>
-        {item.value}
-      </CardContent>
-    </Card>
-  ))}
-</div>
+              {item.value}
+            </CardContent>
+          </Card>
+        ))}
+      </div>
 
 
       {/* ---------- Bar + Pie Row (Responsive) ---------- */}

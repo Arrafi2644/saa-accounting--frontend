@@ -10,11 +10,10 @@ import {
 } from "@/components/ui/dialog";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 
-import { Calendar, Phone, Mail, User, CheckCircle, XCircle } from "lucide-react";
+import { Calendar, Phone, Mail, User, Building2, FileText, BookUser } from "lucide-react";
 
 import { IJoiningRequest } from "@/types";
 
@@ -34,6 +33,7 @@ export default function JoiningRequestDetailsModal({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-xl p-0 overflow-hidden rounded-2xl shadow-2xl border-0 max-h-[90vh]">
+        {/* Hidden for accessibility */}
         <VisuallyHidden>
           <DialogHeader>
             <DialogTitle>Joining Request Details</DialogTitle>
@@ -46,16 +46,8 @@ export default function JoiningRequestDetailsModal({
         {/* Top Section */}
         <div className="relative flex flex-col items-center pt-4 px-6">
           <h2 className="mt-4 text-2xl font-semibold text-gray-800 text-center">
-            {request.companyName}
+            Joining Request Details
           </h2>
-
-          <Badge
-            className={`mt-2 ${
-              request.isHuman ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"
-            }`}
-          >
-            {request.isHuman ? "Verified Human" : "Not Verified"}
-          </Badge>
 
           <Separator className="my-2 w-full" />
         </div>
@@ -65,69 +57,74 @@ export default function JoiningRequestDetailsModal({
           {/* Company Info */}
           <Card className="p-5 bg-gray-50/70 shadow-sm border-0 space-y-2">
             <div className="flex items-center gap-2 text-gray-700">
-              <Calendar className="h-5 w-5 text-gray-600" />
-              <span className="font-semibold">Date:</span>
-              <span>{request.companyDate}</span>
+              <Building2 className="h-5 w-5 text-[#65758B]" />
+              <span className="font-semibold">Business Name:</span>
+              <span>{request.businessName}</span>
             </div>
             <div className="flex items-center gap-2 text-gray-700">
-              <span className="font-semibold">IRD:</span>
-              <span>{request.companyIRD}</span>
+              <Calendar className="h-5 w-5 text-[#65758B]" />
+              <span className="font-semibold">IRD Number:</span>
+              <span>{request.irdNumber}</span>
             </div>
+
             <div className="flex items-center gap-2 text-gray-700">
-              <span className="font-semibold">Address:</span>
-              <span>{request.address}</span>
+              <BookUser className="h-5 w-5 text-[#65758B]" />
+              <span className="font-semibold">Directors & Shareholders:</span>
+              <span>{request.directorsAndShareholders}</span>
             </div>
           </Card>
-
-          {/* Directors */}
-          {[request.director1, request.director2].map((director, idx) => (
-            <Card key={idx} className="p-5 bg-gray-50/70 shadow-sm border-0 space-y-2">
-              <h3 className="font-semibold text-gray-700">
-                Director {idx + 1}
-              </h3>
-              <div className="flex gap-2">
-                <span className="font-medium">Name:</span> {director.name}
-              </div>
-              <div className="flex gap-2">
-                <span className="font-medium">Position:</span> {director.position}
-              </div>
-              <div className="flex gap-2">
-                <span className="font-medium">Date:</span> {director.date}
-              </div>
-              <div className="flex gap-2">
-                <span className="font-medium">IRD:</span> {director.ird}
-              </div>
-            </Card>
-          ))}
 
           {/* Contact Info */}
           <Card className="p-5 bg-gray-50/70 shadow-sm border-0 space-y-2">
             <div className="flex items-center gap-2 text-gray-700">
-              <Phone className="h-5 w-5 text-gray-600" />
-              <span className="font-semibold">Business Phone:</span>
-              <span>{request.phoneBusiness}</span>
+              <User className="h-5 w-5 text-[#65758B]" />
+              <span className="font-semibold">Full Name:</span>
+              <span>{request.fullName}</span>
             </div>
             <div className="flex items-center gap-2 text-gray-700">
-              <Phone className="h-5 w-5 text-gray-600" />
-              <span className="font-semibold">Home Phone:</span>
-              <span>{request.phoneHome}</span>
+              <Phone className="h-5 w-5 text-[#65758B]" />
+              <span className="font-semibold">Phone:</span>
+              <span>{request.phoneNumber}</span>
             </div>
             <div className="flex items-center gap-2 text-gray-700">
-              <Phone className="h-5 w-5 text-gray-600" />
-              <span className="font-semibold">Mobile:</span>
-              <span>{request.phoneMobile}</span>
-            </div>
-            <div className="flex items-center gap-2 text-gray-700">
-              <Mail className="h-5 w-5 text-gray-600" />
+              <Mail className="h-5 w-5 text-[#65758B]" />
               <span className="font-semibold">Email:</span>
-              <span>{request.email}</span>
+              <span>{request.emailAddress}</span>
             </div>
           </Card>
+
+          {/* Documents */}
+          {request.documents.length > 0 && (
+            <Card className="p-5 bg-gray-50/70 shadow-sm border-0 space-y-2">
+              <div className="flex gap-2">
+                <FileText className="h-5 w-5 text-[#65758B] mt-0.5" />
+                <h3 className="font-semibold text-gray-700">Documents</h3>
+              </div>
+              <ul className="list-disc list-inside">
+                {request.documents.map((docUrl, idx) => {
+                  const isPdf = docUrl.toLowerCase().endsWith(".pdf");
+                  return (
+                    <li key={idx}>
+                      <a
+                        href={docUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`text-blue-600 hover:underline ${isPdf ? "font-medium" : ""
+                          }`}
+                      >
+                        {isPdf ? `PDF Document ${idx + 1}` : `Image ${idx + 1}`}
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+            </Card>
+          )}
 
           {/* Submitted At */}
           {request.createdAt && (
             <Card className="p-4 bg-gray-50/70 border-0 shadow-sm">
-              <div className="flex items-center gap-2 text-gray-600">
+              <div className="flex items-center gap-2 text-[#65758B]">
                 <Calendar className="h-5 w-5 text-orange-600" />
                 <span className="font-medium">
                   Submitted On:{" "}

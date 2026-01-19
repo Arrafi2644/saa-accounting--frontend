@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 "use client";
 
@@ -14,16 +16,21 @@ import UpdateUserModal from "@/components/modules/dashboard/user/UpdateUserModal
 import DeleteAlert from "@/components/modules/dashboard/DeleteAlert";
 import React from "react";
 import { DynamicDataTable } from "@/components/modules/dashboard/DataTable";
+import TablePagination from "@/components/modules/shared/tablePagination/TablePagination";
 
 const UserManagementPage = () => {
   const [deleteUser] = useDeleteUserMutation();
 
   const [searchTerm, setSearchTerm] = React.useState("");
   const [sort, setSort] = React.useState("");
+  const [page, setPage] = React.useState(1);
+  const limit = 10;
 
   const { data, isLoading, isError } = useGetAllUsersQuery({
     ...(searchTerm && { searchTerm }),
-    ...(sort && { sort })
+    ...(sort && { sort }),
+    page,
+    limit,
   });
   // Modal states
   const [selectedUser, setSelectedUser] = React.useState<IUser | null>(null);
@@ -40,7 +47,7 @@ const UserManagementPage = () => {
       if (res?.data?.success) {
         toast.success("User deleted successfully");
       }
-    } catch (error) {
+    } catch (error: any) {
       toast.error("Failed to delete user");
     }
   };
@@ -86,15 +93,17 @@ const UserManagementPage = () => {
   return (
     <div>
       <DashboardPageHeader title="User Management" />
-      {/* <UserToolbar
+      <UserToolbar
         onSearchChange={setSearchTerm}
         onSortChange={setSort}
-      /> */}
-      <UserToolbar
-  onSearchChange={setSearchTerm}
-  onSortChange={setSort}
-/>
+      />
       <DynamicDataTable columns={columns} data={data?.data ?? []} actions={actions} />
+      {/* Pagination */}
+      <TablePagination
+        currentPage={page}
+        totalPages={data?.meta?.totalPage ?? 1}
+        onPageChange={setPage}
+      />
 
       {/* View Modal */}
       {selectedUser && (

@@ -33,10 +33,6 @@ import { useUpdateSeoMutation } from "@/redux/features/seo/seo.api";
 // ZOD VALIDATION SCHEMA
 // --------------------
 const seoSchema = z.object({
-  pagePath: z.string().min(1, "Page path is required"),
-  pageTitle: z.string().min(2, "Page title must be at least 2 characters"),
-  pageDescription: z.string().min(5, "Page description must be at least 5 characters"),
-
   metaTitle: z.string().min(2, "Meta title must be at least 2 characters"),
   metaDescription: z.string().min(5, "Meta description must be at least 5 characters"),
   metaKeywords: z.string().optional(),
@@ -69,9 +65,6 @@ export default function UpdateSeoModal({ open, onOpenChange, data }: UpdateSeoMo
   const form = useForm<SeoValues>({
     resolver: zodResolver(seoSchema),
     defaultValues: {
-      pagePath: data?.pagePath || "",
-      pageTitle: data?.pageTitle || "",
-      pageDescription: data?.pageDescription || "",
       metaTitle: data?.metaTitle || "",
       metaDescription: data?.metaDescription || "",
       metaKeywords: data?.metaKeywords || "",
@@ -86,9 +79,6 @@ export default function UpdateSeoModal({ open, onOpenChange, data }: UpdateSeoMo
   useEffect(() => {
     if (data) {
       form.reset({
-        pagePath: data.pagePath || "",
-        pageTitle: data.pageTitle || "",
-        pageDescription: data.pageDescription || "",
         metaTitle: data.metaTitle || "",
         metaDescription: data.metaDescription || "",
         metaKeywords: data.metaKeywords || "",
@@ -98,12 +88,13 @@ export default function UpdateSeoModal({ open, onOpenChange, data }: UpdateSeoMo
         ogImage: data.ogImage || "",
       });
     }
-  }, [data]);
+  }, [data, form]);
 
   const onSubmit = async (values: SeoValues) => {
     try {
       const res = await updateSeo({ id: data._id as string, data: values }).unwrap();
       if (res.success) {
+        await fetch("/api/revalidate/seos", { method: "POST" });
         toast.success("SEO data updated successfully!");
         onOpenChange(false);
       }
@@ -128,9 +119,6 @@ export default function UpdateSeoModal({ open, onOpenChange, data }: UpdateSeoMo
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5" noValidate>
             {[
-              { name: "pagePath", label: "Page Path", placeholder: "/about, /contact, /services" },
-              { name: "pageTitle", label: "Page Title", placeholder: "Page title..." },
-              { name: "pageDescription", label: "Page Description", placeholder: "Short description of your page..." },
               { name: "metaTitle", label: "Meta Title", placeholder: "Meta title..." },
               { name: "metaDescription", label: "Meta Description", placeholder: "Meta description..." },
               { name: "metaKeywords", label: "Meta Keywords", placeholder: "keyword1, keyword2, keyword3" },

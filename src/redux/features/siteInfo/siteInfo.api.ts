@@ -5,28 +5,28 @@ import type { IResponse, ISiteInfo, ISiteInfoResponse } from "@/types";
 export const siteInfoApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
         // CREATE
-        createSiteInfo: builder.mutation<IResponse<ISiteInfo>, Partial<ISiteInfo>>({
-            query: (data) => ({
+        createSiteInfo: builder.mutation<IResponse<ISiteInfo>, FormData>({
+            query: (formData) => ({
                 url: "/site-info",
                 method: "POST",
-                data,
+                data: formData,
             }),
             invalidatesTags: ["SITEINFO"],
         }),
 
-        updateSiteInfo: builder.mutation<IResponse<ISiteInfo>, Partial<ISiteInfo>>({
-            query: (data) => ({
+        updateSiteInfo: builder.mutation<IResponse<ISiteInfo>, FormData>({
+            query: (formData) => ({
                 url: `/site-info`,
                 method: "PATCH",
-                data, // send only the fields you want to update
+                data: formData ,
             }),
             invalidatesTags: ["SITEINFO"],
         }),
-        
+
         getSiteInfo: builder.query<ISiteInfoResponse, void>({
             query: () => ({
                 url: "/site-info",
-                method: "GET", // optional, default ই GET
+                method: "GET",
             }),
             providesTags: ["SITEINFO"],
         }),

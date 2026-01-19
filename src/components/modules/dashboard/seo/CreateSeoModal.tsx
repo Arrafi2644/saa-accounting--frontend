@@ -33,9 +33,6 @@ import { useCreateSEOMutation } from "@/redux/features/seo/seo.api";
 // ZOD VALIDATION SCHEMA
 const seoSchema = z.object({
     pagePath: z.string().min(1, "Page path is required"),
-    pageTitle: z.string().min(2, "Page title must be at least 2 characters"),
-    pageDescription: z.string().min(5, "Page description must be at least 5 characters"),
-
     metaTitle: z.string().min(2, "Meta title must be at least 2 characters"),
     metaDescription: z.string().min(5, "Meta description must be at least 5 characters"),
     metaKeywords: z.string().optional(),
@@ -67,8 +64,6 @@ export default function CreateSeoModal() {
         resolver: zodResolver(seoSchema),
         defaultValues: {
             pagePath: "",
-            pageTitle: "",
-            pageDescription: "",
             metaTitle: "",
             metaDescription: "",
             metaKeywords: "",
@@ -84,6 +79,7 @@ export default function CreateSeoModal() {
             const res = await createSeo(data).unwrap();
 
             if (res.success) {
+                await fetch("/api/revalidate/seos", { method: "POST" });
                 toast.success("SEO data created successfully!");
                 form.reset();
                 setOpen(false);
@@ -125,47 +121,7 @@ export default function CreateSeoModal() {
                                     <FormControl>
                                         <Input
                                             id={`${id}-pagePath`}
-                                            placeholder="/about, /contact, /services"
-                                            {...field}
-                                        />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-
-                        {/* PAGE TITLE */}
-                        <FormField
-                            control={form.control}
-                            name="pageTitle"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel htmlFor={`${id}-pageTitle`}>Page Title</FormLabel>
-                                    <FormControl>
-                                        <Input
-                                            id={`${id}-pageTitle`}
-                                            placeholder="Page title..."
-                                            {...field}
-                                        />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-
-                        {/* PAGE DESCRIPTION */}
-                        <FormField
-                            control={form.control}
-                            name="pageDescription"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel htmlFor={`${id}-pageDescription`}>
-                                        Page Description
-                                    </FormLabel>
-                                    <FormControl>
-                                        <Input
-                                            id={`${id}-pageDescription`}
-                                            placeholder="Short description of your page..."
+                                            placeholder="e.g: about"
                                             {...field}
                                         />
                                     </FormControl>
