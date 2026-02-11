@@ -17,9 +17,9 @@ export const TestimonialSlideCard: React.FC<{ testimonial: ITestimonial }> = ({
             transition={{
                 delay: 0.1, duration: 0.4, ease: "easeOut"
             }}
-            className="overflow-hidden group"
+            className="overflow-hidden group rounded-2xl"
         >
-            <Card className="border border-[#EFF1F5] shadow-lg bg-white ">
+            <Card className="border-3 border-[#EFF1F5] rounded-2xl hover:border-[#61BEEC] transition-all duration-300 shadow-lg bg-white ">
                 <CardContent className="p-8 md:p-12">
                     {/* Star Rating */}
                     <div className="flex gap-1 mb-6">

@@ -1,3 +1,4 @@
+"use client"
 import React from 'react';
 import { motion } from "framer-motion";
 import { IServiceOverview } from '@/types';
@@ -10,15 +11,15 @@ interface ServiceOverviewProps {
 const ServiceOverViewContent = ({ overview }: ServiceOverviewProps) => {
     return (
         <motion.div
-            initial={{ opacity: 0, x: -20 }}
+            initial={{ opacity: 0, x: -150 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 1.3 }}
         >
             <h2 className="text-3xl md:text-4xl font-bold text-[#002047] mb-6">
                 {overview.title}
             </h2>
-            <p className="text-lg leading-relaxed mb-8 text-[#65758B]">
+            <p className="text-lg leading-relaxed mb-8 text-black">
                 {overview.description}
             </p>
             {

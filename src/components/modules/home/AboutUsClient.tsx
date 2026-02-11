@@ -82,7 +82,7 @@ export default function AboutUsSection() {
 
   return (
     <div ref={containerRef} className="relative w-full">
-      <div className="container mx-auto">
+      <div className="container mx-auto overflow-hidden">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
 
           {/* Left Section - Images */}
@@ -95,9 +95,9 @@ export default function AboutUsSection() {
                 transition={{ duration: 1.3, ease: "easeOut" }}
                 className="relative overflow-hidden h-full rounded-2xl group"
               >
-                <div className="bg-[#2563EB] absolute z-10 h-full w-full group-hover:scale-110 transition-all duration-500 rounded-2xl p-6 lg:p-8 shadow-xl aspect-square flex flex-col items-center justify-center">
+                <div className="bg-[#0C2541] absolute z-10 h-full w-full group-hover:scale-110 transition-all duration-500 rounded-2xl p-6 lg:p-8 shadow-xl aspect-square flex flex-col items-center justify-center">
                 </div>
-                <div className=" absolute h-full w-full group-hover:scale-110 transition-all duration-500 rounded-2xl flex item-center justify-center flex-col gap-4 z-30">
+                <div className=" absolute h-full w-full group-hover:scale-110 transition-all duration-500 rounded-2xl flex item-center justify-center flex-col gap-3 z-30">
                   <div className="text-white text-5xl lg:text-6xl font-bold text-center gr ">
                     12+
                   </div>
@@ -106,8 +106,7 @@ export default function AboutUsSection() {
                     Years of<br />Experiences
                   </div>
                 </div>
-                <div className="w-full h-full absolute group-hover:scale-105 transition-all duration-500 bg-[#5e87e087] rounded-full z-20 -top-2/5">
-
+                <div className="w-full h-full absolute group-hover:scale-105 transition-all duration-500 bg-[#163353] rounded-full z-20 -top-3/7">
                 </div>
               </motion.div>
 
@@ -116,7 +115,7 @@ export default function AboutUsSection() {
                 initial={{ opacity: 0, scale: 0.7, x: 150 }}
                 animate={isInView ? { opacity: 1, scale: 1, x: 0 } : {}}
                 transition={{ duration: 1.3, delay: 0.2, ease: "easeOut" }}
-                className="relative h-64 lg:h-92 rounded-2xl overflow-hidden shadow-lg group"
+                className="relative h-60 lg:h-92 rounded-2xl overflow-hidden shadow-lg group"
               >
                 <Image
                   src={aboutImg2}
@@ -173,10 +172,10 @@ export default function AboutUsSection() {
               initial={{ opacity: 0, y: 70 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 1.3, delay: 0.2 }}
-              className="text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 leading-tight"
+              className="text-3xl lg:text-4xl xl:text-5xl font-bold text-[#002047] leading-tight"
             >
               Your Partner in Financial{" "}
-              <span className="text-[#2563EB]"> Confidence</span>
+              <span className="text-[#0b4d94]"> Confidence</span>
             </motion.h2>
 
             {/* Description */}

@@ -42,8 +42,8 @@ export default function WhyRegister() {
     ];
 
     return (
-        <div className="sticky top-40">
-            <div className="container mx-auto space-y-6">
+        <div className="sticky top-24 ">
+            <div className="container mx-auto overflow-hidden space-y-6">
                 {/* Why Register Card */}
                 <Card className="border rounded-lg shadow-lg">
                     <CardHeader className="pb-0">
@@ -55,14 +55,14 @@ export default function WhyRegister() {
                         {benefits.map((benefit, index) => {
                             const Icon = benefit.icon;
                             return (
-                                <div key={index} className="flex items-start gap-4">
+                                <div key={index} className="flex items-start gap-4 group">
                                     <div
-                                        className={`${benefit.color} rounded-lg p-3 shrink-0`}
+                                        className={`${benefit.color} rounded-lg p-3 shrink-0 group-hover:scale-110 transition-all duration-500`}
                                     >
                                         <Icon className={`h-6 w-6 ${benefit.iconColor}`} />
                                     </div>
                                     <div className="flex-1">
-                                        <h3 className="text-base font-semibold text-[#1f2937] mb-1">
+                                        <h3 className="text-base font-semibold text-[#1f2937] mb-1 group-hover:text-lg transition-all duration-500">
                                             {benefit.title}
                                         </h3>
                                         <p className="text-sm text-gray-600 leading-relaxed">
@@ -76,11 +76,11 @@ export default function WhyRegister() {
                 </Card>
 
                 {/* Your Data is Secure Card */}
-                <Card className="border rounded-lg shadow-lg bg-[#F2F4F9]">
-                    <CardHeader className="pb-4">
-                        <div className="flex items-center gap-2 mb-2">
-                            <Shield className="h-5 w-5 text-[#5664B0]" />
-                            <CardTitle className=" font-bold text-[#002047]">
+                <Card className="border rounded-lg shadow-lg bg-[#F2F4F9] group">
+                    <CardHeader className="pb-4 ">
+                        <div className="flex items-center gap-2 mb-2 ">
+                            <Shield className="h-5 w-5 text-[#5664B0] group-hover:scale-115 transition-all duration-500" />
+                            <CardTitle className=" font-bold text-[#002047] group-hover:text-lg transition-all duration-500">
                                 <h3>Your Data is Secure</h3>
                             </CardTitle>
                         </div>

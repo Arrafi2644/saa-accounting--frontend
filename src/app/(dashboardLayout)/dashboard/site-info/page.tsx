@@ -1,3 +1,5 @@
+
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
@@ -14,6 +16,7 @@ import {
   Linkedin,
   MessageCircle,
   ExternalLink,
+  Building2,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -58,7 +61,7 @@ export default function SiteInfoViewPage() {
     );
   }
 
-  // Social platform config with icon and color
+  // Social platform config
   const socialPlatforms = [
     { key: "facebook" as const, icon: Facebook, name: "Facebook" },
     { key: "instagram" as const, icon: Instagram, name: "Instagram" },
@@ -70,7 +73,6 @@ export default function SiteInfoViewPage() {
     { key: "pinterest" as const, icon: Globe, name: "Pinterest" },
   ];
 
-  // Filter only platforms that have a URL
   const activeSocials = socialPlatforms
     .filter((platform) => siteInfo[platform.key])
     .map((platform) => ({
@@ -89,11 +91,9 @@ export default function SiteInfoViewPage() {
           </h1>
           <p className="text-muted-foreground mt-1">Global website settings & contact details</p>
         </div>
-
-          <Button>
-            <Link href="/dashboard/update-siteinfo">Update Site Info</Link>
-          </Button>
-
+        <Button asChild>
+          <Link href="/dashboard/update-siteinfo">Update Site Info</Link>
+        </Button>
       </div>
 
       <div className="grid lg:grid-cols-3 gap-8">
@@ -121,29 +121,28 @@ export default function SiteInfoViewPage() {
                 <span className="text-gray-500">No Main Logo</span>
               </div>
             )}
-
             <h3 className="text-2xl font-bold">{siteInfo.siteTitle || "—"}</h3>
             {siteInfo.siteTagline && (
               <p className="text-muted-foreground italic text-lg">{siteInfo.siteTagline}</p>
             )}
 
             {/* Footer Logo */}
-            {siteInfo.footerLogo ? (
+            {siteInfo.footerLogo && (
               <>
                 <p className="text-sm text-muted-foreground mt-6">Footer Logo</p>
-                <div className="relative mx-auto w-48 h-24 ">
+                <div className="relative mx-auto w-48 h-24">
                   <Image
                     src={siteInfo.footerLogo}
                     alt="Footer Logo"
                     fill
-                    className="object-contain rounded border shadow-sm bg-[#002047] "
+                    className="object-contain rounded border shadow-sm bg-[#002047]"
                   />
                 </div>
               </>
-            ) : null}
+            )}
 
             {/* Favicon */}
-            {siteInfo.faviconLogo ? (
+            {siteInfo.faviconLogo && (
               <>
                 <p className="text-sm text-muted-foreground mt-6">Favicon</p>
                 <Image
@@ -154,12 +153,13 @@ export default function SiteInfoViewPage() {
                   className="mx-auto rounded border shadow"
                 />
               </>
-            ) : null}
+            )}
           </CardContent>
         </Card>
 
-        {/* Contact & Social Section */}
+        {/* Contact & Social + Branches + Map */}
         <div className="lg:col-span-2 space-y-8">
+          {/* Contact & Social */}
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -168,7 +168,6 @@ export default function SiteInfoViewPage() {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-5">
-              {/* Emails */}
               {siteInfo.mainEmail && (
                 <div className="flex items-center gap-4">
                   <Mail className="w-5 h-5 text-gray-500" />
@@ -180,7 +179,6 @@ export default function SiteInfoViewPage() {
                   </div>
                 </div>
               )}
-
               {siteInfo.supportEmail && (
                 <div className="flex items-center gap-4">
                   <Mail className="w-5 h-5 text-gray-500" />
@@ -192,8 +190,6 @@ export default function SiteInfoViewPage() {
                   </div>
                 </div>
               )}
-
-              {/* Phones */}
               {siteInfo.phone && (
                 <div className="flex items-center gap-4">
                   <Phone className="w-5 h-5 text-gray-500" />
@@ -205,7 +201,6 @@ export default function SiteInfoViewPage() {
                   </div>
                 </div>
               )}
-
               {siteInfo.supportPhone && (
                 <div className="flex items-center gap-4">
                   <Phone className="w-5 h-5 text-gray-500" />
@@ -217,8 +212,6 @@ export default function SiteInfoViewPage() {
                   </div>
                 </div>
               )}
-
-              {/* Address */}
               {siteInfo.address && (
                 <div className="flex items-start gap-4">
                   <MapPin className="w-5 h-5 text-gray-500 mt-0.5" />
@@ -229,10 +222,10 @@ export default function SiteInfoViewPage() {
                 </div>
               )}
 
-              {/* Social Links - Same Style */}
+              {/* Active Social Links */}
               {activeSocials.map(({ key, icon: Icon, name, url }) => (
                 <div key={key} className="flex items-center gap-4">
-                  <Icon className={`w-5 h-5 text-gray-500`} />
+                  <Icon className="w-5 h-5 text-gray-500" />
                   <div>
                     <p className="text-sm text-muted-foreground">{name}</p>
                     <Link
@@ -250,7 +243,35 @@ export default function SiteInfoViewPage() {
             </CardContent>
           </Card>
 
-          {/* Google Map - Separate Card */}
+          {/* Branches Section */}
+          {siteInfo.branches && siteInfo.branches.length > 0 && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Building2 className="w-5 h-5" />
+                  Our Branches
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid md:grid-cols-2 gap-6">
+                  {siteInfo.branches.map((branch, index) => (
+                    <div
+                      key={index}
+                      className="border rounded-lg p-5 bg-gray-50/50 hover:bg-gray-100 transition-colors"
+                    >
+                      <h3 className="font-semibold text-lg mb-2">{branch.name}</h3>
+                      <p className="text-muted-foreground flex items-start gap-2">
+                        <MapPin className="w-4 h-4 mt-1 shrink-0" />
+                        {branch.address}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
+          {/* Google Map */}
           {siteInfo.mapEmbedUrl && (
             <Card>
               <CardHeader>

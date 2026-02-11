@@ -95,7 +95,6 @@ export default function JoinUsForm() {
             });
 
             const result = await res.json();
-            console.log(result);
             if (result.success) {
                 toast.success("Join us form submitted successfully");
                 form.reset();
@@ -212,7 +211,7 @@ export default function JoinUsForm() {
                                                             type="number"
                                                             placeholder="e.g., 123-456-789"
                                                             {...field}
-                                                            className="border-gray-300"
+                                                            className="border-gray-300 no-spinner"
                                                         />
                                                     </FormControl>
                                                     <FormMessage />
@@ -393,10 +392,10 @@ export default function JoinUsForm() {
                                 </Card>
 
                                 {/* Authority Form Section */}
-                                <Card className="border-0 shadow-sm bg-[#f8f9fc]">
+                                <Card className="border-0 shadow-sm bg-[#f8f9fc] hover:shadow-lg group transition-all duration-500">
                                     <CardHeader className="pb-0">
                                         <div className="flex items-center gap-2 mb-2">
-                                            <div className=" rounded-lg p-2">
+                                            <div className="bg-white rounded-lg p-2  group-hover:scale-115 transition-all duration-500">
                                                 <Scale className="h-5 w-5 text-[#4D5CAC]" />
                                             </div>
                                             <div>
@@ -439,10 +438,10 @@ export default function JoinUsForm() {
                                 </Card>
 
                                 {/* Statement of Disclaimer of Liability */}
-                                <Card className="border-0 shadow-sm bg-[#f8f9fc]">
+                                <Card className="border-0 shadow-sm bg-[#f8f9fc] hover:shadow-lg group transition-all duration-500">
                                     <CardHeader className="pb-0">
                                         <div className="flex items-center gap-2">
-                                            <div className="bg-white rounded-lg p-2">
+                                            <div className="bg-white rounded-lg p-2  group-hover:scale-115 transition-all duration-500">
                                                 <Eye className="h-5 w-5 text-[#4D5CAC]" />
                                             </div>
                                             <CardTitle className="text-base font-semibold text-[#002047]">
@@ -462,12 +461,12 @@ export default function JoinUsForm() {
                                 </Card>
 
                                 {/* Additional Information Cards */}
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 ">
                                     {/* AML Notice */}
-                                    <Card className="border-0 shadow-sm bg-white">
+                                    <Card className="border shadow-sm bg-white hover:shadow-lg group transition-all duration-500">
                                         <CardContent className="pt-6">
                                             <div className="flex items-start gap-3">
-                                                <div className="bg-[#EEFAFE] rounded-lg p-2.5 shrink-0">
+                                                <div className="bg-[#EEFAFE] rounded-lg p-2.5 shrink-0  group-hover:scale-110 transition-all duration-500">
                                                     <AlertTriangle className="h-5 w-5 text-[#64D3F8]" />
                                                 </div>
                                                 <div>
@@ -485,10 +484,10 @@ export default function JoinUsForm() {
                                     </Card>
 
                                     {/* Privacy & Data Protection */}
-                                    <Card className="border-0 shadow-sm bg-white">
+                                    <Card className="border shadow-sm bg-white hover:shadow-lg group transition-all duration-500" >
                                         <CardContent className="pt-6">
                                             <div className="flex items-start gap-3">
-                                                <div className="bg-[#EEFAFE] rounded-lg p-2.5 shrink-0">
+                                                <div className="bg-[#EEFAFE] rounded-lg p-2.5 shrink-0  group-hover:scale-110 transition-all duration-500">
                                                     <Lock className="h-5 w-5 text-[#64D3F8]" />
                                                 </div>
                                                 <div>
@@ -505,10 +504,10 @@ export default function JoinUsForm() {
                                     </Card>
 
                                     {/* Conflict of Interest */}
-                                    <Card className="border-0 shadow-sm bg-white">
+                                    <Card className="border shadow-sm bg-white hover:shadow-lg group transition-all duration-500">
                                         <CardContent className="pt-6">
                                             <div className="flex items-start gap-3">
-                                                <div className="bg-[#EEFAFE] rounded-lg p-2.5 shrink-0">
+                                                <div className="bg-[#EEFAFE] rounded-lg p-2.5 shrink-0  group-hover:scale-110 transition-all duration-500">
                                                     <Shield className="h-5 w-5 text-[#64D3F8]" />
                                                 </div>
                                                 <div>
@@ -525,10 +524,10 @@ export default function JoinUsForm() {
                                     </Card>
 
                                     {/* Service Commitment */}
-                                    <Card className="border-0 shadow-sm bg-white">
+                                    <Card className="border shadow-sm hover:shadow-lg group bg-white transition-all duration-500">
                                         <CardContent className="pt-6">
                                             <div className="flex items-start gap-3">
-                                                <div className="bg-[#EEFAFE] rounded-lg p-2.5 shrink-0">
+                                                <div className="bg-[#EEFAFE] rounded-lg p-2.5 shrink-0 group-hover:scale-110 transition-all duration-500">
                                                     <CheckCircle className="h-5 w-5 text-[#64D3F8]" />
                                                 </div>
                                                 <div>
@@ -548,8 +547,8 @@ export default function JoinUsForm() {
                                 {/* Submit Button */}
                                 <Button
                                     type="submit"
-                                    disabled={!form.watch("authorityConsent") || isSubmitting}
-                                    className="w-full bg-[#4D5CAC] hover:bg-[#4D5CAC] cursor-pointer text-white py-6 text-base font-medium rounded-lg shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                                    
+                                    className="w-full bg-[#4D5CAC] hover:bg-[#4D5CAC]/93 transition-all duration-500 hover:scale-99 cursor-pointer text-white py-6 text-base font-medium rounded-lg shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
                                     {isSubmitting ? <Spinner /> : <Shield className="mr-2 h-5 w-5" />}
                                     {isSubmitting ? "Processing..." : "Submit Registration"}

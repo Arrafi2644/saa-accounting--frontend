@@ -15,7 +15,7 @@ export function AnimatedButton() {
         transition-all duration-300
         hover:bg-linear-to-l
         hover:shadow-lg hover:scale-105
-        cursor-pointer md:w-auto text-base
+        cursor-pointer w-full xl:w-auto text-base
         border
       "
     >

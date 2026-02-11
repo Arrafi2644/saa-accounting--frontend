@@ -53,7 +53,7 @@ const ContactPage = async () => {
             <CommonHero title={commonHeroProps.title} description={commonHeroProps.description} />
             <ContactInfoSection contactInfo={contactInfo} />
             <ContactSection contactInfo={contactInfo} />
-            <BranchSection />
+            <BranchSection contactInfo={contactInfo} />
             <WhyContactSection />
             <CTASection />
         </div>

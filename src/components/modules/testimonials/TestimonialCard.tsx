@@ -11,29 +11,27 @@ interface TestimonialCardProps {
 export const TestimonialCard: React.FC<TestimonialCardProps> = ({ index, testimonial }) => {
   return (
    <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 70 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-
-        whileHover={{ scale: 1.02 }}
         transition={{
-          delay: index * 0.1,
-          duration: 0.5,
+          delay: index * 0.2,
+          duration: 1,
           y: {
-            delay: 0.1,
-            duration: 0.3,
+            delay: 0.2,
+            duration: 1,
             ease: "easeOut",
           },
         }}
     >
 
     
-    <Card className="relative bg-white border h-full border-gray-200 hover:shadow- transition-shadow duration-300">
+    <Card className="relative group bg-white border-3 h-full border-gray-200 hover:border-cyan-400  transition-all duration-300 hover:shadow-xl">
       <CardContent className="p-6">
         {/* Badge */}
-        <div className="absolute -top-4 right-6">
-          <div className="w-8 h-8 rounded-full bg-cyan-400 flex items-center justify-center">
-            <span className="text-white font-bold text-sm"><Quote size={16} /></span>
+        <div className="absolute -top-5 right-6 group-hover:scale-110 transition-all duration-500">
+          <div className="w-10 h-10 rounded-full bg-cyan-400 flex items-center justify-center">
+            <span className="text-white font-bold text-sm"><Quote size={18} /></span>
           </div>
         </div>
 
@@ -43,11 +41,11 @@ export const TestimonialCard: React.FC<TestimonialCardProps> = ({ index, testimo
         </p>
 
         {/* Rating */}
-        <div className="flex gap-1 mb-4">
+        <div className="flex gap-1 mb-4 ">
           {[...Array(testimonial.rating)].map((_, i) => (
             <Star
               key={i}
-              className="w-4 h-4 fill-cyan-400 text-cyan-400"
+              className="w-4 h-4 group-hover:scale-102 transition-all duration-500 fill-cyan-400 text-cyan-400"
             />
           ))}
         </div>
@@ -58,13 +56,13 @@ export const TestimonialCard: React.FC<TestimonialCardProps> = ({ index, testimo
         </p>
 
         {/* Client Info */}
-        <div className="flex items-start gap-3 mb-4">
+        <div className="flex items-start gap-3 mb-4 group-hover:scale-102 transition-all duration-500">
           <div className="w-10 h-10 rounded-full  bg-linear-to-br from-[#4F65B6] to-[#64D3F8] flex items-center justify-center shrink-0">
             <span className="text-white font-bold text-sm">
               <User size={22} />
             </span>
           </div>
-          <div className="flex-1 min-w-0">
+          <div className="flex-1 min-w-0 ">
             <p className="font-semibold text-gray-900 text-sm truncate">
               {testimonial.clientName}
             </p>

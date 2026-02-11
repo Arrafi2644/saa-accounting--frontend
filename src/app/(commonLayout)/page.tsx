@@ -53,10 +53,10 @@ export default async function HomePage() {
     <div className="flex flex-col items-center justify-center font-sans">
       <Hero />
       <TrustStrip />
+      <AboutUs />
       <ServicesGrid services={services} />
       <ProblemSolution />
       {/* <WhoWeAre /> */}
-      <AboutUs />
       <WorkProcess />
       <TestimonialsSection testimonials={testimonials} />
       <ConversionBanner />

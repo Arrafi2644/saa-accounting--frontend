@@ -15,6 +15,5 @@ export const getCookie = async (key: string) => {
 
 export const deleteCookie = async (key: string) => {
     const cookieStore = await cookies();
-    console.log({tokenKe: key});
     cookieStore.delete(key);
 }

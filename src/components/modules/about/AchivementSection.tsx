@@ -1,3 +1,4 @@
+import AnimatedSectionHeader from "../animations/AnimatedSectionHeader";
 import { TimelineItem } from "./TimelineItem";
 
 export default function AchievementsSection() {
@@ -14,8 +15,8 @@ export default function AchievementsSection() {
     },
     {
       year: '2019',
-      title: 'Xero Certified Partner',
-      description: 'Achieved official Xero certification for cloud accounting excellence.',
+      title: 'Xero certified and MYOB Partners',
+      description: 'Achieved official Xero certification and MYOB Partners for cloud accounting excellence.',
     },
     {
       year: '2023',
@@ -30,17 +31,13 @@ export default function AchievementsSection() {
   ];
 
   return (
-    <section className="w-full bg-white py-20 px-4 sm:px-6 lg:px-8">
+    <section className="w-full bg-white py-20 xl:py-28 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto">
-        {/* Section Header */}
-        <div className="text-center mb-12 sm:mb-16">
-          <div className="inline-block bg-[#EDEEF6] text-[#5b6ba8] text-sm font-medium px-4 py-2 rounded-full mb-4">
-            Our Journey
-          </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1a3a52] leading-tight">
-            Our Achievements
-          </h2>
-        </div>
+
+        <AnimatedSectionHeader
+          tag="Our Journey"
+          heading="Our Achievements"
+        />
 
         {/* Timeline */}
         <div className="relative">

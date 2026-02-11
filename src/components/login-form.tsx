@@ -40,11 +40,7 @@ const loginFormSchema = z.object({
 export function LoginForm({ className, ...props }: React.ComponentProps<"div">) {
 
   const form = useForm<z.infer<typeof loginFormSchema>>({
-    resolver: zodResolver(loginFormSchema),
-    defaultValues: {
-      email: "admin@gmail.com",
-      password: "admin1234",
-    },
+    resolver: zodResolver(loginFormSchema)
   });
   const router = useRouter();
   const [siteInfo, setSiteInfo] = useState<ISiteInfo | null>(null);

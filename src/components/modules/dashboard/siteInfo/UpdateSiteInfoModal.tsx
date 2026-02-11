@@ -1,7 +1,8 @@
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { useForm } from "react-hook-form";
+import { useForm, useFieldArray, Control } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Button } from "@/components/ui/button";
@@ -46,6 +47,13 @@ const siteInfoSchema = z.object({
   tiktok: z.string().url().optional().or(z.literal("")),
   pinterest: z.string().url().optional().or(z.literal("")),
   whatsapp: z.string().optional(),
+  branches: z
+    .array(
+      z.object({
+        name: z.string().min(1, "Branch name is required"),
+        address: z.string().min(1, "Branch address is required"),
+      })
+    )
 });
 
 type SiteInfoFormValues = z.infer<typeof siteInfoSchema>;
@@ -66,9 +74,7 @@ function FileUpload({
   label,
   accept = "image/*",
 }: FileUploadProps) {
-  const preview = value
-    ? URL.createObjectURL(value)
-    : currentUrl || "";
+  const preview = value ? URL.createObjectURL(value) : currentUrl || "";
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -98,15 +104,79 @@ function FileUpload({
         </div>
       ) : (
         <label className="flex flex-col items-center justify-center w-full h-48 border-2 border-dashed rounded-lg cursor-pointer">
-          <input
-            type="file"
-            hidden
-            accept={accept}
-            onChange={handleFileChange}
-          />
+          <input type="file" hidden accept={accept} onChange={handleFileChange} />
           Upload {label}
         </label>
       )}
+    </div>
+  );
+}
+
+// Branches Field Array Component
+function BranchesFieldArray({
+  control,
+}: {
+  control: Control<SiteInfoFormValues>;
+}) {
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "branches",
+  });
+
+  return (
+    <div className="space-y-6">
+      {fields.map((field, index) => (
+        <div
+          key={field.id}
+          className="grid grid-cols-1 md:grid-cols-[1fr_1fr_auto] gap-4 items-end border rounded-lg p-4 bg-gray-50/50"
+        >
+          <FormField
+            control={control}
+            name={`branches.${index}.name`}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Branch Name</FormLabel>
+                <FormControl>
+                  <Input {...field} placeholder="e.g. Dhaka Branch" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={control}
+            name={`branches.${index}.address`}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Address</FormLabel>
+                <FormControl>
+                  <Input {...field} placeholder="e.g. Dhanmondi, Dhaka" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <Button
+            type="button"
+            variant="destructive"
+            size="icon"
+            onClick={() => remove(index)}
+          >
+            ×
+          </Button>
+        </div>
+      ))}
+
+      <Button
+        type="button"
+        variant="outline"
+        onClick={() => append({ name: "", address: "" })}
+        className="w-full md:w-auto"
+      >
+        + Add New Branch
+      </Button>
     </div>
   );
 }
@@ -136,13 +206,13 @@ export default function UpdateSiteInfoForm() {
       tiktok: "",
       pinterest: "",
       whatsapp: "",
+      branches: [],
       mainLogo: undefined,
       footerLogo: undefined,
       faviconLogo: undefined,
     },
   });
 
-  // Load existing data
   useEffect(() => {
     if (siteInfo) {
       form.reset({
@@ -162,6 +232,7 @@ export default function UpdateSiteInfoForm() {
         tiktok: siteInfo.tiktok || "",
         pinterest: siteInfo.pinterest || "",
         whatsapp: siteInfo.whatsapp || "",
+        branches: siteInfo.branches || [],
       });
     }
   }, [siteInfo, form]);
@@ -170,7 +241,6 @@ export default function UpdateSiteInfoForm() {
     try {
       const formData = new FormData();
 
-      // Text fields - only add if value exists
       const textFields: (keyof SiteInfoFormValues)[] = [
         "siteTitle",
         "siteTagline",
@@ -191,22 +261,30 @@ export default function UpdateSiteInfoForm() {
       ];
 
       textFields.forEach((field) => {
-        const value = data[field] as string;
+        const value = data[field] as string | undefined;
         if (value && value.trim() !== "") {
           formData.append(field, value.trim());
         }
       });
 
-      // Files - only append if new file selected
+
+
+      if (data.branches && data.branches.length > 0) {
+  data.branches.forEach((branch, index) => {
+    formData.append(`branches[${index}][name]`, branch.name);
+    formData.append(`branches[${index}][address]`, branch.address);
+  });
+}
+
       if (data.mainLogo) formData.append("mainLogo", data.mainLogo);
       if (data.footerLogo) formData.append("footerLogo", data.footerLogo);
       if (data.faviconLogo) formData.append("faviconLogo", data.faviconLogo);
 
       const res = await updateSiteInfo(formData).unwrap();
-        if(res.success){
-           await fetch("/api/revalidate/siteinfos", { method: "POST" });
-          toast.success("Site information updated successfully!");
-        }
+      if (res.success) {
+        await fetch("/api/revalidate/siteinfos", { method: "POST" });
+        toast.success("Site information updated successfully!");
+      }
     } catch (error: any) {
       console.error("Update error:", error);
       toast.error(error?.data?.message || "Failed to update site info");
@@ -223,10 +301,8 @@ export default function UpdateSiteInfoForm() {
   }
 
   return (
-    <div className="container mx-auto p-6 max-w-5xl">
-      <h1 className="text-3xl font-bold mb-8 text-[#002047]">
-        Update Site Information
-      </h1>
+    <div className="container mx-auto p-6">
+      <h1 className="text-3xl font-bold mb-8 text-[#002047]">Update Site Information</h1>
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-10">
@@ -246,15 +322,13 @@ export default function UpdateSiteInfoForm() {
                       <FileUpload
                         value={field.value}
                         onChange={field.onChange}
-                        // currentUrl={siteInfo?.mainLogo}
-                        label=" Main Logo"
+                        label="Main Logo"
                       />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-
               <FormField
                 control={form.control}
                 name="footerLogo"
@@ -265,7 +339,6 @@ export default function UpdateSiteInfoForm() {
                       <FileUpload
                         value={field.value}
                         onChange={field.onChange}
-                        // currentUrl={siteInfo?.footerLogo}
                         label="Footer Logo"
                       />
                     </FormControl>
@@ -273,7 +346,6 @@ export default function UpdateSiteInfoForm() {
                   </FormItem>
                 )}
               />
-
               <FormField
                 control={form.control}
                 name="faviconLogo"
@@ -284,8 +356,6 @@ export default function UpdateSiteInfoForm() {
                       <FileUpload
                         value={field.value}
                         onChange={field.onChange}
-                        // currentUrl={siteInfo?.faviconLogo}
-                        
                         label="Favicon"
                         accept="image/x-icon,image/png,image/jpeg"
                       />
@@ -423,7 +493,17 @@ export default function UpdateSiteInfoForm() {
             </CardContent>
           </Card>
 
-          {/* Social Links */}
+          {/* Branches Section */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Branches</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <BranchesFieldArray control={form.control} />
+            </CardContent>
+          </Card>
+
+          {/* Social Media Links */}
           <Card>
             <CardHeader>
               <CardTitle>Social Media Links</CardTitle>
@@ -451,9 +531,7 @@ export default function UpdateSiteInfoForm() {
                       <FormControl>
                         <Input
                           {...field}
-                          // value={field.value ?? ""}
                           value={typeof field.value === "string" ? field.value : ""}
-
                           placeholder={`https://${platform}.com/your-profile`}
                         />
                       </FormControl>

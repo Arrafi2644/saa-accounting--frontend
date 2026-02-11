@@ -162,7 +162,7 @@ export function Navbar({ siteInfo, services }: Props) {
                     {/* Desktop CTAs */}
                     <div className="hidden xl:flex items-center gap-4">
 
-                        <Link href='/contact'>
+                        <Link href='/consultation'>
                             <GradientButton className='text-[#0C2541]! hover:text-white!' variant='outline'>
                                 Book a Consultant
                             </GradientButton>
@@ -266,9 +266,9 @@ export function Navbar({ siteInfo, services }: Props) {
 
                             <div className="pt-4 flex flex-col gap-3">
                                 {/* Outline button */}
-                                <Link href="/contact" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+                                <Link href="/consultation" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
                                     <Button
-                                        variant="outline" className="cursor-pointer w-full border-[#4f5cb0] text-[#002047] hover:text-[#4f5cb0] hover:bg-[#EEF5FB]  transition-all duration-200 active:scale-95"
+                                        variant="outline" className="cursor-pointer w-full py-6 border-[#4f5cb0] text-[#002047] hover:text-[#4f5cb0] hover:bg-[#EEF5FB]  transition-all duration-200 active:scale-95"
                                     >
                                         Book a Consultant
                                     </Button>

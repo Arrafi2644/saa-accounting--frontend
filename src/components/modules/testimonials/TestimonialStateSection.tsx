@@ -34,9 +34,19 @@ export const TestimonialStatSection: React.FC<AllTestimonialsSectionProps> = ({ 
   ];
 
   return (
-    <section className="w-full bg-linear-to-r from-cyan-400 to-blue-400">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-cyan-300/30">
+   <section className="w-full bg-gradient-to-br from-cyan-500 via-blue-500 to-indigo-600 relative overflow-hidden"
+    style={{
+        background: "linear-gradient(to right, #0c2541, #2c5985f2, #0c2541)",
+      }}
+   >
+      {/* Animated background patterns */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+      </div>
+      
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-white/20">
           {stats.map((stat, index) => (
             <StatItem
               key={index}

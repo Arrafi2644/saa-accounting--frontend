@@ -137,9 +137,30 @@
   border-image: linear-gradient(to right, #b6b6b6, #5e2f0a) 1;
   border-radius: 8px; 
 }
+.border-gradient-2 {
+  border: 2px solid; 
+  border-image: linear-gradient(to right, #53C9F4, #4F61B3) 1;
+  border-radius: 8px; 
+}
 
 .bg-gradient-custom {
   background: linear-gradient(to right, #0c2541, #2c5985f2, #0c2541);
+}
+
+.no-spinner::-webkit-outer-spin-button,
+.no-spinner::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+@keyframes gradient-shift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 @theme inline {

@@ -48,11 +48,11 @@ export const StatItem: React.FC<StatItemProps> = ({ index, icon, value, label, s
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: index * 0.1 }}
+            transition={{ delay: index * 0.2 , duration: 1}}
             className="flex flex-col items-center justify-center px-4 py-6 sm:py-8">
             <div className="flex items-center gap-2 mb-2">
-                <div className="text-[#002047]">{icon}</div>
-                <span className="text-2xl md:text-3xl font-bold text-[#002047]">
+                <div className="text-white">{icon}</div>
+                <span className="text-2xl md:text-3xl font-bold text-white">
                     {typeof value === "number" ? (
                         <Counter value={value} suffix={suffix || ""} />
                     ) : (
@@ -60,7 +60,7 @@ export const StatItem: React.FC<StatItemProps> = ({ index, icon, value, label, s
                     )}
                 </span>
             </div>
-            <p className="text-sm sm:text-base text-[#002047CC]">
+            <p className="text-sm sm:text-base text-white">
                 {label}
             </p>
         </motion.div>

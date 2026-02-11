@@ -7,11 +7,12 @@ export interface Props {
 }
 export default function ContactInfoSection({ contactInfo }: Props) {
     return (
-        <section className="w-full py-12 bg-white px-4 sm:px-6 lg:px-8">
-            <div className="container mx-auto">
+        <section className="w-full ">
+            <div className="container mx-auto py-12 bg-white px-4 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <ContactCard
-                        icon={<Mail className="w-6 h-6 text-[#4D5CAC]" />}
+                        
+                        icon={<Mail className="w-6 h-6 text-[#4D5CAC]  group" />}
                         backgroundColor="#EDEEF6"
                         title="Email Us"
                         content={contactInfo.mainEmail ? contactInfo.mainEmail : "office@saaaccounting.co.nz"}
@@ -22,14 +23,14 @@ export default function ContactInfoSection({ contactInfo }: Props) {
                         backgroundColor="#EDEEF6"
                         title="Call Us"
                         content={` ${contactInfo?.phone ? contactInfo?.phone : "027 943 0700"}`}
-                        delay={0.1}
+                        delay={0.2}
                     />
                     <ContactCard
                         icon={<Clock className="w-6 h-6 text-[#4D5CAC]" />}
                         backgroundColor="#EDEEF6"
                         title="Operating Hours"
                         content="Monday – Friday, 9:00 AM – 4:00 PM"
-                        delay={0.2}
+                        delay={0.4}
                     />
                 </div>
             </div>

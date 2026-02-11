@@ -1,5 +1,6 @@
 import { Briefcase, Heart, Home, MoreHorizontal, RectangleEllipsis, ShoppingCart, Truck, Wrench } from "lucide-react";
 import { IndustryCard } from "./IndustryCard";
+import AnimatedSectionHeader from "../animations/AnimatedSectionHeader";
 
 export default function IndustryCoverageSection() {
   const industries = [
@@ -29,7 +30,7 @@ export default function IndustryCoverageSection() {
     },
     {
       icon: <RectangleEllipsis size={24} strokeWidth={2} />,
-      title: 'Other Technologies',
+      title: 'Salon & Hospitality',
     },
     {
       icon: <MoreHorizontal size={24} strokeWidth={2} />,
@@ -38,17 +39,14 @@ export default function IndustryCoverageSection() {
   ];
 
   return (
-    <section className="w-full bg-[#cff0fc78] py-20 px-4 sm:px-6 lg:px-8">
-      <div className="container mx-auto">
+    <section className="w-full bg-[#cff0fc78] py-20 xl:py-28 px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto overflow-hidden">
         {/* Section Header */}
-        <div className="text-center mb-12 sm:mb-16">
-          <div className="inline-block bg-[#e0f4fb] text-[#002047] text-sm font-medium px-4 py-2 rounded-full mb-4">
-            Industries We Serve
-          </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1a3a52] leading-tight">
-            Industry Coverage
-          </h2>
-        </div>
+
+        <AnimatedSectionHeader 
+        tag="Industries We Serve"
+        heading="Industry Coverage"
+        />
 
         {/* Industries Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">

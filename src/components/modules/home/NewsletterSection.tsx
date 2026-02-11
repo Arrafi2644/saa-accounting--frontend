@@ -34,6 +34,7 @@ export const NewsletterSection: React.FC<NewsletterSectionProps> = ({
     setStatus('idle');
     setMessage('');
 
+
     try {
       const response = await fetch(`${config.baseUrl}/newsletters`, {
         method: 'POST',
@@ -68,7 +69,7 @@ export const NewsletterSection: React.FC<NewsletterSectionProps> = ({
 
   return (
     <section className="w-full bg-[#0a2540] -mt-0.5 py-12 px-4 sm:px-6">
-      <div className="container mx-auto">
+      <div className="container mx-auto overflow-hidden">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 lg:gap-8">
           {/* Left content */}
           <motion.div
@@ -105,16 +106,8 @@ export const NewsletterSection: React.FC<NewsletterSectionProps> = ({
                   disabled={loading}
                   className="flex-1 px-5 py-3 sm:py-3.5 bg-[#0f3556] border border-[#1a4d6f] text-white placeholder-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#64D3F8] focus:border-transparent transition-all disabled:opacity-70"
                 />
-                {/* <button
-                  onClick={handleSubscribe}
-                  disabled={loading}
-                  className="flex items-center justify-center cursor-pointer gap-2 px-6 py-3 sm:py-3.5 bg-[#64D3F8] hover:bg-cyan-500 text-[#0a2540] font-semibold rounded-lg transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] whitespace-nowrap disabled:opacity-70 disabled:cursor-not-allowed"
-                >
-                  {loading ? 'Subscribing...' : 'Subscribe'}
-                  {!loading && <ArrowRight size={18} className="shrink-0" />}
-                </button> */}
                 <GradientButton onClick={handleSubscribe}
-                disabled
+                disabled={loading}
                 > {loading ? 'Subscribing...' : 'Subscribe'}
                 </GradientButton>
               </div>

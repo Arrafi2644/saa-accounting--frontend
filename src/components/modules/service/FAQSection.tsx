@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { AccordionItem } from './AccordionItem';
 import { IFaq } from '@/types';
+import AnimatedSectionHeader from '../animations/AnimatedSectionHeader';
 
 interface Props {
   faqs: IFaq[];
@@ -16,10 +17,10 @@ const FAQSection = ({ faqs }: Props) => {
   };
 
   return (
-    <section className="w-full py-24 px-4 md:px-6 lg:px-8 bg-[#F9FBFC]">
+    <section className="w-full py-20 xl:py-28 px-4 md:px-6 lg:px-8 bg-[#F9FBFC]">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-12 lg:mb-16">
+        {/* <div className="text-center mb-12 lg:mb-16">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#002047] mb-4">
             Frequently Asked{' '}
             <span className="text-[#4D5CAC]">Questions</span>
@@ -27,7 +28,14 @@ const FAQSection = ({ faqs }: Props) => {
           <p className="text-base md:text-lg text-[#65758B] max-w-2xl mx-auto">
             Everything you need to know about our accounting and tax services.
           </p>
-        </div>
+        </div> */}
+
+            <AnimatedSectionHeader 
+                heading=" Frequently Asked Questions"
+                subtitle="Everything you need to know about our accounting and tax services."
+                >
+
+                </AnimatedSectionHeader>
 
         {/* FAQ Accordion */}
         <div className=" overflow-hidden space-y-6">

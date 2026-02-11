@@ -2,8 +2,32 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import config from "@/config";
+import { ISiteInfo } from "@/types";
+import { useEffect, useState } from "react";
 
 export default function TermsPage() {
+    const [siteInfo, setSiteInfo] = useState<ISiteInfo | null>(null);
+    const [loading, setLoading] = useState(false);
+    const [loadingSiteInfo, setLoadingSiteInfo] = useState(true);
+
+    useEffect(() => {
+        const fetchSiteInfo = async () => {
+            try {
+                const res = await fetch(`${config.baseUrl}/site-info`);
+                if (!res.ok) throw new Error("Failed to fetch site info");
+                const data = await res.json();
+                setSiteInfo(data.data);
+            } catch (error) {
+                console.error(error);
+            } finally {
+                setLoadingSiteInfo(false);
+            }
+        };
+
+        fetchSiteInfo();
+    }, []);
+
     return (
         <div className="max-w-4xl mx-auto p-6">
             <h1 className="text-3xl font-bold mb-6 text-center text-[#002047]">Terms & Conditions</h1>
@@ -15,7 +39,7 @@ export default function TermsPage() {
                     <CardContent>
                         <p>
                             These Terms & Conditions govern your use of the website
-                            <strong><a href="https://saa-accounting-client.vercel.app">saa-accounting-client.vercel.app</a></strong> and the provision of services by
+                            <strong> <a href="https://saa-accounting.co.nz">saa-accounting.co.nz</a></strong> and the provision of services by
                             SAA Accounting Services Limited. By accessing the website or using our services,
                             you agree to be bound by these terms.
                         </p>
@@ -102,8 +126,16 @@ export default function TermsPage() {
                         <CardTitle>Contact Information</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <p>Email: <a href="mailto:info@saaaccounting.co.nz" className="text-blue-600">info@saaaccounting.co.nz</a></p>
-                        <p>Phone: +64 123 456 789</p>
+                        <p>Email: <a href={`mailto:${siteInfo?.mainEmail}`} className="hover:text-cyan-300 transition-colors duration-200">{siteInfo?.mainEmail}</a></p>
+                        <p>Phone:
+                            <a
+                                href={`tel:${siteInfo?.phone}`}
+                                className="hover:text-cyan-300 transition-colors duration-200 ml-2"
+                            >
+                                {siteInfo?.phone}
+                            </a>
+                        </p>
+                        <p>Address: {siteInfo?.address}</p>
                     </CardContent>
                 </Card>
             </ScrollArea>

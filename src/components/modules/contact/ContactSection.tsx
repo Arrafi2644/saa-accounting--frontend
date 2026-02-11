@@ -9,7 +9,7 @@ export interface Props {
 export default function ContactSection({contactInfo}:Props) {
   return (
     <section className="bg-white py-20 px-4 md:px-6">
-      <div className="container mx-auto">
+      <div className="container mx-auto overflow-hidden">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
           <ContactForm />
           <ContactInfo contactInfo={contactInfo} />

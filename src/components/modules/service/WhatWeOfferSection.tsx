@@ -10,8 +10,7 @@ export const WhatWeOfferSection: React.FC<Props> = ({ service }) => {
 
 
   return (
-  <section className="relative px-4 sm:px-6 lg:px-8 py-20 overflow-hidden bg-white">
-
+  <section className="relative px-4 sm:px-6 lg:px-8 py-20 xl:py-28 overflow-hidden bg-white">
 
       <div className="relative container mx-auto">
         {/* Header */}

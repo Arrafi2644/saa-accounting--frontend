@@ -4,7 +4,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 export default function UpdateServiceSkeleton() {
   return (
     <div className="min-h-screen bg-gray-50 p-8">
-      <div className="container mx-auto">
+      <div className="container mx-auto ">
        
         <Skeleton className="h-10 w-64 mb-8" />
     

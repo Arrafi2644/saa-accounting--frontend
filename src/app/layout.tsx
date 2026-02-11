@@ -26,7 +26,8 @@ export async function generateMetadata(): Promise<Metadata> {
   const siteInfo = data.data;
 
   return {
-    title: siteInfo?.siteTitle || "SAA-Accounting App",
+    metadataBase: new URL("https://saa-accounting.co.nz"),
+    title: siteInfo?.siteTitle || "SAA-Accounting Business Ltd",
     description:
       siteInfo?.siteTagline ||
       "Strategic financial clarity for small to medium-sized businesses.",
@@ -50,7 +51,7 @@ export default function RootLayout({
       <body>
         <main>
           {children}
-          <Toaster richColors />
+          <Toaster richColors position="top-center" />
         </main>
       </body>
     </html>

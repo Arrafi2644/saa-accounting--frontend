@@ -19,7 +19,7 @@ export function AnnouncementBar({ siteInfo }: Props) {
       }}
     >
       <div className=" bg-[#0C2541]  text-[#FFFFFF] text-xs sm:text-sm border-b border-gray-200">
-        <div className="container mx-auto py-2 px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-2">
+        <div className="container mx-auto overflow-hidden py-2 px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center gap-2">
           <div className="font-medium text-center sm:text-left">
             Providing Trusted Accounting Solutions Since 2013.
           </div>

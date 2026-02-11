@@ -4,6 +4,10 @@ import { motion } from "framer-motion"
 import Link from "next/link";
 import { PrimaryButton } from "../button/PrimaryButton";
 import { SecondaryButton } from "../button/SecondaryButton";
+import GradientButton from "../button/GradiantButton";
+import Image from "next/image";
+import ctaBg from "../../../../../public/assets/cta-bg-image.png"
+
 
 
 export interface commonCTAProps {
@@ -16,7 +20,17 @@ export interface commonCTAProps {
 
 const CommonCTA = ({ badgeTitle, title, subTitle, primaryBtnText, secondaryBtnText }: commonCTAProps) => {
     return (
-        <div className="w-full bg-linear-to-r from-[#002048]  to-[#4D5CAC] py-20 px-4 sm:px-6 lg:px-8">
+        <div className="w-full  py-20 px-4 sm:px-6 lg:px-8 relative">
+              <div className="absolute inset-0 -z-10">
+                <Image
+                  src={ctaBg}
+                  alt="CTA-Section-Background"
+                  className="object-cover w-full h-full"
+                  priority
+                />
+                {/* Optional overlay */}
+                {/* <div className="absolute inset-0 bg-black/40"></div> */}
+              </div>
             <div className="max-w-5xl mx-auto">
                 {/* Content Container */}
                 <motion.div
@@ -47,12 +61,18 @@ const CommonCTA = ({ badgeTitle, title, subTitle, primaryBtnText, secondaryBtnTe
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
                         {/* Primary Button */}
                         <Link href="/join-us">
-                            <PrimaryButton>{primaryBtnText}</PrimaryButton>
+                            {/* <PrimaryButton>{primaryBtnText}</PrimaryButton> */}
+                            <GradientButton>
+                                {primaryBtnText}
+                            </GradientButton>
                         </Link>
 
                         {/* Secondary Button */}
                         <Link href="/contact">
-                            <SecondaryButton className='border-[#64D3F8] text-[#64D3F8] hover:bg-[#64D3F8] hover:border-[#002047] hover:text-[#002047] transition-colors duration-300 ease-in-out'>{secondaryBtnText}</SecondaryButton>
+                            {/* <SecondaryButton className='border-[#64D3F8] text-[#64D3F8] hover:bg-[#64D3F8] hover:border-[#002047] hover:text-[#002047] transition-colors duration-300 ease-in-out'>{secondaryBtnText}</SecondaryButton> */}
+                            <GradientButton variant="outline">
+                                {secondaryBtnText}
+                            </GradientButton>
                         </Link>
                     </div>
                 </motion.div>

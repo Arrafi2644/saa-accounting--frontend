@@ -105,7 +105,7 @@ export const ConversionBanner: React.FC<CTASectionProps> = ({
               {/* <PrimaryButton>Start Your Registration</PrimaryButton> */}
               <GradientButton>Start Your Registration</GradientButton>
             </Link>
-            <Link href="/contact">
+            <Link href="/consultation">
               {/* <SecondaryButton className='transition-colors duration-300 border-[#ffffff4d] hover:border-[#ACB1C5] bg-transparent hover:bg-transparent text-white hover:text-[#002047]'><span className='mr-1'><Phone /></span>Book A Consultation</SecondaryButton> */}
               <GradientButton variant='outline'>
                 Book A Consultation

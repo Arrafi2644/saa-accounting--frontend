@@ -75,7 +75,6 @@ export const ReviewForm = () => {
         e.preventDefault();
 
         if (validateForm()) {
-            console.log("Review Form Data:", formData);
             const res = await createTestimonial(formData).unwrap();
             if (res.success) {
                 toast.success("Review submitted successfully")
@@ -99,7 +98,7 @@ export const ReviewForm = () => {
 
     return (
         <div className="min-h-screen w-full  py-8 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-4xl container mx-auto">
+            <div className="max-w-4xl container mx-auto overflow-hidden">
                 <Card className="shadow-lg border p-4 py-4 md:py-6">
                     <CardHeader className="pb-4 text-center">
                         <div className=" flex items-center w-full justify-center">

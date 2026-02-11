@@ -16,19 +16,19 @@ interface TimelineItemProps {
 export const TimelineItem: React.FC<TimelineItemProps> = ({ year, title, description, index, isLast }) => {
   return (
     <motion.div
-      initial={{ opacity: 0, x: -30 }}
+      initial={{ opacity: 0, x: -100 }}
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true }}
       transition={{
         delay: index * 0.15,
-        duration: 0.5,
+        duration: 1,
       }}
-      className="relative flex gap-6 pb-12 last:pb-0"
+      className="relative flex gap-6 pb-12 last:pb-0 group"
     >
       {/* Timeline Line and Icon */}
       <div className="relative flex flex-col items-center">
         {/* Icon Container */}
-        <div className="w-12 h-12 bg-[#4D5CAC] rounded-full flex items-center justify-center shrink-0 z-10 shadow-lg">
+        <div className="w-12 h-12 group-hover:scale-115 transition-all duration-300 bg-[#4D5CAC] rounded-full flex items-center justify-center shrink-0 z-10 shadow-lg">
           <Calendar size={20} className="text-white" strokeWidth={2} />
         </div>
         
@@ -41,7 +41,7 @@ export const TimelineItem: React.FC<TimelineItemProps> = ({ year, title, descrip
       {/* Content */}
       <div className="flex-1 pt-2">
         {/* Year */}
-        <p className="text-[#4D5CAC] text-sm font-semibold mb-2">
+        <p className="text-[#4D5CAC] text-sm font-semibold mb-2 group-hover:text-lg transition-all duration-500">
           {year}
         </p>
         

@@ -54,10 +54,10 @@ const FeaturedTestimonialSection: React.FC<FeaturedTestimonialsSectionProps> = (
         <div className="flex items-center justify-center gap-4">
           <button
             onClick={handlePrevious}
-            className="p-2 rounded-full group cursor-pointer bg-white border hover:border-[#4D5CAC] hover:bg-[#4D5CAC] transition"
+            className="p-2 rounded-full group cursor-pointer transition-all duration-300 bg-white border hover:border-[#4D5CAC] hover:bg-[#4D5CAC]"
             aria-label="Previous testimonial"
           >
-            <ChevronLeft className="w-5 h-5 text-[#4D5CAC] group-hover:text-white" />
+            <ChevronLeft className="w-5 h-5 text-[#4D5CAC] transition-all duration-300 group-hover:text-white" />
           </button>
 
           {/* Dots */}
@@ -78,10 +78,10 @@ const FeaturedTestimonialSection: React.FC<FeaturedTestimonialsSectionProps> = (
 
           <button
             onClick={handleNext}
-            className="p-2 group rounded-full cursor-pointer bg-white border hover:border-[#4D5CAC] hover:bg-[#4D5CAC] transition"
+            className="p-2 group rounded-full cursor-pointer bg-white border transition-all duration-300 hover:border-[#4D5CAC] hover:bg-[#4D5CAC]"
             aria-label="Next testimonial"
           >
-            <ChevronRight className="w-5 h-5 text-[#4D5CAC] group-hover:text-white" />
+            <ChevronRight className="w-5 h-5 text-[#4D5CAC] transition-all duration-300 group-hover:text-white" />
           </button>
         </div>
       </div>

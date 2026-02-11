@@ -8,11 +8,12 @@ import {
 import GlassGlace, { HeroTextAnimation, HeroTextAnimationFromLeft, HeroTextAnimationFromRight, HeroTextAnimationFromTop, HoverGlass } from './HeroTextAnimation'
 import Link from 'next/link'
 import GradientButton from '../shared/button/GradiantButton'
+
 export function HeroServer() {
   return (
     <div className="relative flex items-center w-full font-sans">
       {/* Main Content Container */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-12 lg:py-16">
+      <div className="container mx-auto overflow-hidden px-4 sm:px-6 lg:px-8 relative z-10 py-12 lg:py-16">
         <div >
           {/* Badge */}
           {/* <HeroTextAnimationFromTop delay={0.2}>
@@ -42,7 +43,7 @@ export function HeroServer() {
 
           {/* Heading */}
           <HeroTextAnimationFromLeft delay={0.4}>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl xl:text-7xl max-w-2xl xl:max-w-3xl font-bold text-white leading-tight mb-6 mt-8">
+            <h1 className="text-4xl md:text-5xl xl:text-7xl max-w-2xl xl:max-w-3xl font-bold text-white leading-tight mb-6 mt-8">
               Strategic Accounting for{' '}
               <span className=" text-[#53C9F4]">
                 Business Owners Who Want More

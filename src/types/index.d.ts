@@ -137,12 +137,18 @@ export interface ISEO {
   updatedAt?: Date;
 }
 
+export interface IBranch {
+  name: string,
+  address: string
+}
+
 export interface ISiteInfo {
   siteTitle?: string;
   siteTagline?: string;
   mainLogo: string;
   faviconLogo?: string;
   footerLogo: string;
+  branches?: IBranch[];
   mainEmail?: string;
   supportEmail?: string;
   phone?: string;

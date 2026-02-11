@@ -6,7 +6,7 @@ import {motion} from "framer-motion"
 
 export default function WhyContactSection() {
   return (
-    <section className="w-full py-16 px-4 sm:px-6 lg:px-8 bg-linear-to-b from-gray-50 to-white">
+    <section className="w-full py-20 xl:py-28 px-4 sm:px-6 lg:px-8 bg-linear-to-b from-gray-50 to-white">
       <div className="container mx-auto">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -23,19 +23,19 @@ export default function WhyContactSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           <FeatureCard
-            icon={<Zap className="w-8 h-8 text-cyan-500" />}
+            icon={<Zap className="w-8 h-8 text-white group-hover:text-[#6DCFFA]" />}
             title="Fast Response"
             description="We aim to respond to all inquiries within 24 business hours."
             delay={0}
           />
           <FeatureCard
-            icon={<Users className="w-8 h-8 text-cyan-500" />}
+            icon={<Users className="w-8 h-8 text-white group-hover:text-[#6DCFFA]" />}
             title="Expert Advice"
             description="Speak directly with experienced accountants like Shalini."
             delay={0.15}
           />
           <FeatureCard
-            icon={<MonitorPlay className="w-8 h-8 text-cyan-500" />}
+            icon={<MonitorPlay className="w-8 h-8 text-white group-hover:text-[#6DCFFA]" />}
             title="Virtual Friendly"
             description="Fully equipped for Zoom, Teams, and remote MYOB/Xero training."
             delay={0.3}

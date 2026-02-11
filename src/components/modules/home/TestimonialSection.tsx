@@ -1,12 +1,10 @@
-
-"use client";
-
+"use client"
 import React, { useState } from "react";
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { TestimonialSlideCard } from "./TestimonialSlideCard";
 import { ITestimonial } from "@/types";
-import { GlaceGlaceForTagline } from "./HeroTextAnimation";
+import AnimatedSectionHeader from "../animations/AnimatedSectionHeader";
 
 
 interface testimonialsSectionProps {
@@ -70,54 +68,12 @@ const TestimonialSection: React.FC<testimonialsSectionProps> = ({ testimonials }
       {/* 🔹 Main Content (Top Layer) */}
       <div className="relative z-10 max-w-4xl mx-auto">
 
-        {/* Header */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.4 }}
-          variants={{
-            hidden: {},
-            visible: { transition: { staggerChildren: 0.08 } },
-          }}
-          className="text-center mb-12"
-        >
-          {/* Tag */}
-          <motion.span
-            initial={{ opacity: 0, scale: 0.5 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: staggerDelays.tag, ease: "easeOut" }}
-            className="inline-block text-white font-medium text-sm rounded-tl-2xl rounded-br-2xl bg-linear-to-r from-blue-600 to-[#56CCF4]"
-          >
-            <GlaceGlaceForTagline>
-            <p className="py-2 px-6 ">
-              TESTIMONIALS
-            </p>
-            </GlaceGlaceForTagline>
-          </motion.span>
 
-          {/* Heading */}
-          <motion.h2
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: staggerDelays.heading, ease: "easeOut" }}
-            className="text-3xl md:text-4xl font-bold text-[#002047] my-4"
-          >
-            Client Success Stories
-          </motion.h2>
-
-          {/* Paragraph */}
-          <motion.p
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: staggerDelays.para, ease: "easeOut" }}
-            className="text-black max-w-2xl mx-auto"
-          >
-            Hear from business owners who transformed their financial management.
-          </motion.p>
-        </motion.div>
+        <AnimatedSectionHeader 
+        tag="TESTIMONIALS"
+        heading="Client Success Stories"
+        subtitle="Hear from business owners who transformed their financial management."
+        />
 
         {/* Animated Card */}
         <motion.div

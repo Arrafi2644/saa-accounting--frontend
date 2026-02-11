@@ -26,7 +26,7 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
             duration: 0.5,
           }}
           >
-    <div className="border cursor-pointer bg-white border-gray-200 hover:border-[#64D3F8] rounded-lg  transition-all duration-300 ease-in-out">
+    <div className="border-2 cursor-pointer bg-white border-gray-200 hover:border-[#64D3F8] rounded-lg  transition-all duration-300 ease-in-out">
       <button
         onClick={onToggle}
         className="w-full transition-all duration-300   cursor-pointer flex items-center justify-between py-5 px-6 text-left"

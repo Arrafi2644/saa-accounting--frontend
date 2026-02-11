@@ -1,10 +1,6 @@
 
 import Image from 'next/image';
-import AnimatedScrollButton from './AnimatedScrollButton';
 import { HeroServer } from './HeroServer';
-import heroBg from "../../../../public/assets/saa-hero-bg.jpeg" 
-import heroBg2 from "../../../../public/assets/Banner v2.jpg" 
-import heroBg3 from "../../../../public/assets/saa-hero-3.jpeg" 
 import heroBg4 from "../../../../public/assets/Banner-v4.jpg" 
 
 export default function Hero() {

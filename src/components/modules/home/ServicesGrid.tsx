@@ -1,13 +1,11 @@
-"use client"
 
-import React from "react";
-import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
 import { ServiceCard } from "./ServiceCard";
 import { IService } from "@/types";
 import Link from "next/link";
 import { MoveRight } from "lucide-react";
-import { GlaceGlaceForTagline } from "./HeroTextAnimation";
+import AnimatedSectionHeader from "../animations/AnimatedSectionHeader";
+import servicesBg from "../../../../public/assets/service-grid-bg.webp"
+import Image from "next/image";
 
 // --- Helper for staggered animation delays ---
 const staggerDelays = {
@@ -23,57 +21,27 @@ type Props = {
 export function ServicesGrid({ services }: Props) {
 
   return (
-    <section className="py-20 md:28 lg:py-32 bg-[#EEEEEE] relative -mt-1 w-full" id="servicesSection">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.4 }}
-          variants={{
-            hidden: {},
-            visible: { transition: { staggerChildren: 0.08 } },
-          }}
-          className="text-center max-w-3xl mx-auto mb-16"
-        >
-          {/* Tag */}
-          <motion.span
-            initial={{ opacity: 0, scale: 0.5 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: staggerDelays.tag, ease: "easeOut" }}
-            className="inline-block text-white font-medium text-sm  rounded-tl-2xl rounded-br-2xl bg-linear-to-r from-blue-600 to-[#56CCF4]"
-          >
-            <GlaceGlaceForTagline>
-              
-            <p className="py-2 px-6">
-            OUR SERVICES
-            </p>
-            </GlaceGlaceForTagline>
-          </motion.span>
+    <section className="py-20 md:28 lg:py-32 bg-[#001F3F] relative -mt-1 w-full" id="servicesSection">
+      <Image
+        src={servicesBg}
+        alt="Service section background image"
+        fill
+        className="object-cover absolute inset-0 z-0"
+      />
+      {/* <div
+  className="absolute inset-0 z-0 bg-repeat" // bg-repeat = background-repeat: repeat
+  style={{ backgroundImage: `url(${servicesBg.src})` }}
+/> */}
+        <div className="absolute inset-0 bg-[#001539]/65 z-10" />
+      <div className="container mx-auto overflow-hidden px-4 sm:px-6 lg:px-8 relative z-20">
 
-          {/* Heading */}
-          <motion.h2
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: staggerDelays.heading, ease: "easeOut" }}
-            className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#002047] mb-6 mt-4"
-          >
-            Our Core Services
-          </motion.h2>
-
-          {/* Paragraph */}
-          <motion.p
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: staggerDelays.para, ease: "easeOut" }}
-            className="text-[#002047] text-lg"
-          >
-            From compliance to growth strategy, we provide the tailored support your business needs to thrive.
-          </motion.p>
-        </motion.div>
+        <AnimatedSectionHeader
+          tag="OUR SERVICES"
+          heading="Our Core Services"
+          subtitle="From compliance to growth strategy, we provide the tailored support your business needs to thrive."
+          headingColor="#FFFFFF"
+          subtitleColor="#FFFFFF"
+        />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 h-full">
           {services.map((service: IService, index: number) => (

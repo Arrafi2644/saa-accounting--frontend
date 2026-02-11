@@ -2,6 +2,9 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import CustomSVG from './CustomSvg';
+import Image from 'next/image';
+import cardImg from "../../../../public/assets/technolgoies-card-bg.svg"
 
 interface ToolCardProps {
   icon: React.ReactNode;
@@ -13,31 +16,39 @@ interface ToolCardProps {
 export const ToolCard: React.FC<ToolCardProps> = ({ icon, title, description, index }) => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      whileHover={{ y: -8 }}
-      transition={{
-        delay: index * 0.1,
-        duration: 0.5,
-        y: { delay: 0.5, duration: 0.3, ease: 'easeOut' },
-      }}
-      className="bg-[#9177770f] p-8 rounded-xl border border-[#00204745] group flex flex-col h-full"
+    initial={{ opacity: 0, y: 70 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{
+      duration: 1,
+      delay: index * 0.2,
+    }}
+    className="overflow-hidden rounded-xl border-3 border-white transition-all duration-300 hover:shadow-[0_0_20px_#6DCFFA] hover:border-[#6DCFFA]"
     >
-      {/* Icon Container */}
-      <div className="w-16 h-16 bg-[#e8eaf5] rounded-2xl flex items-center justify-center mb-6 transition-transform duration-300">
-        <div className="text-[#5b6ba8]">{icon}</div>
+      <div className='relative hover:scale-103 transition-all duration-500 bg-[#002047] p-8 group rounded-xl border border-[#00204745] group flex flex-col h-full'>
+      {/* Top-right SVG background decor */}
+        <Image
+        src={cardImg}
+        alt='technology'
+        height={500}
+        width={500}
+        className='object-cover absolute -top-4 right-0'
+        />
+
+      {/* Card content */}
+      <div className="flex flex-col z-10">
+        {/* Icon */}
+        <div className="relative group-hover:scale-110 transition-all  w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mb-6 duration-300">
+          <div className="text-white text-2xl">{icon}</div>
+        </div>
+
+        {/* Title */}
+        <h3 className="text-2xl font-bold text-white mb-4">{title}</h3>
+
+        {/* Description */}
+        <p className="text-white text-base leading-relaxed">{description}</p>
       </div>
-
-      {/* Title */}
-      <h3 className="text-2xl font-bold text-[#1a3a52] mb-4 transition-colors">
-        {title}
-      </h3>
-
-      {/* Description */}
-      <p className="text-[#6b7280] text-base leading-relaxed">
-        {description}
-      </p>
+      </div>
     </motion.div>
   );
 };

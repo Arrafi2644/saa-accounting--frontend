@@ -43,8 +43,8 @@ export function ProblemSolutionClient(): React.JSX.Element {
           className="object-cover rounded-xl group-hover:scale-105 transition-all duration-500"
         />
         </div>
-        <div className="h-16 w-16 bg-[#DCDEEF] rounded-lg absolute -left-4 -top-4 -z-10"></div>
-        <div className="h-24 w-24 bg-[#D9F0F9] rounded-lg absolute -right-4 -bottom-4 -z-10"></div>
+        {/* <div className="h-16 w-16 bg-[#DCDEEF] rounded-lg absolute -left-4 -top-4 -z-10"></div>
+        <div className="h-24 w-24 bg-[#D9F0F9] rounded-lg absolute -right-4 -bottom-4 -z-10"></div> */}
       </motion.div>
 
       {/* Right Column, all staggered with motion.div for sequential animation */}

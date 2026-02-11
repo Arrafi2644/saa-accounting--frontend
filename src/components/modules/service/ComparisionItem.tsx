@@ -47,12 +47,12 @@ export const DualComparisonCard: React.FC<DualComparisonCardProps> = ({
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
       {/* Left: Without Expert Support (Problems) */}
       <motion.div
-        initial={{ opacity: 0, x: -20 }}
+        initial={{ opacity: 0, x: -150 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
+        transition={{ duration: 1}}
       >
-        <div className="rounded-3xl p-8 lg:p-10 border border-[#FBE7E7] bg-white">
+        <div className="rounded-3xl p-8 lg:p-10 border border-[#FBE7E7] bg-white ">
           <Badge
             icon={withoutSaaS.badgeIcon}
             text={withoutSaaS.badgeTitle}
@@ -63,13 +63,13 @@ export const DualComparisonCard: React.FC<DualComparisonCardProps> = ({
           <h3 className="text-3xl lg:text-4xl font-bold text-gray-900 mt-6 mb-8">
             {withoutSaaS.title}
           </h3>
-          <div className="space-y-4">
+          <div className="space-y-4 ">
             {withoutSaaS.items.map((item, index) => (
               <div
                 key={index}
-                className="flex items-center gap-4 p-4 rounded-xl bg-red-50"
+                className="flex items-center gap-4 p-4 rounded-xl bg-red-50 group border hover:border transition-all duration-300 border-red-50 hover:border-red-200"
               >
-                <div className="shrink-0 p-2 rounded-lg bg-[#FADEDF]">
+                <div className="shrink-0 p-2 rounded-lg bg-[#FADEDF] group-hover:scale-110 transition-all duration-500">
                   <DynamicLucideIcon iconName={item.icon} size={20} className="text-[#F05253] " />
                 </div>
                 <span className="text-base font-medium text-gray-800">
@@ -82,10 +82,10 @@ export const DualComparisonCard: React.FC<DualComparisonCardProps> = ({
       </motion.div>
       {/* Right: With SAA Accounting (Benefits) */}
       <motion.div
-        initial={{ opacity: 0, x: 20 }}
+        initial={{ opacity: 0, x: 150 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
+        transition={{ duration: 1 }}
       >
         <div className="rounded-3xl p-8 lg:p-10 border border-[#D1F1FA] bg-white">
           <Badge
@@ -102,9 +102,9 @@ export const DualComparisonCard: React.FC<DualComparisonCardProps> = ({
             {withSaaS.items.map((item, index) => (
               <div
                 key={index}
-                className="flex items-center gap-4 p-4 rounded-xl bg-[#F1F9FD]"
+                className="flex items-center gap-4 p-4 rounded-xl bg-[#F1F9FD] group border hover:border-blue-300"
               >
-                <div className="shrink-0 p-2 rounded-lg bg-[#D1F1FA]">
+                <div className="shrink-0 p-2 rounded-lg bg-[#D1F1FA] group-hover:scale-110 transition-all duration-500">
                   <DynamicLucideIcon iconName={item.icon} size={20} className="text-[#56CDF5]" />
                 </div>
                 <span className="text-base font-medium text-gray-800">

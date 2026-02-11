@@ -15,7 +15,7 @@ export const FeaturedTestimonialCard: React.FC<{ testimonial: ITestimonial }> = 
             exit={{ opacity: 0, x: 80 }}
             transition={{ delay: 0.1, duration: 0.4, ease: "easeOut" }}
         >
-            <Card className="border border-[#EFF1F5] shadow-lg bg-[#515FAE]">
+            <Card className="border group border-[#EFF1F5] shadow-lg bg-[#515FAE]">
                 <CardContent className="p-8 md:p-12">
                    <div className="flex justify-between items-start gap-4">
                      <div className="">
@@ -33,7 +33,7 @@ export const FeaturedTestimonialCard: React.FC<{ testimonial: ITestimonial }> = 
                         </div>
                     </div>
 
-                    <div className="w-14 h-14 rounded-full text-[#56CDF5] bg-[#6774B8] flex items-center justify-center font-semibold">
+                    <div className="w-14 h-14 group-hover:scale-110 transition-all duration-500 rounded-full text-[#56CDF5] bg-[#6774B8] flex items-center justify-center font-semibold">
                         <Quote size={28} />
                     </div>
                    </div>
@@ -44,7 +44,7 @@ export const FeaturedTestimonialCard: React.FC<{ testimonial: ITestimonial }> = 
                     </blockquote>
 
                     {/* Author */}
-                    <div className="flex flex-col md:flex-row items-center justify-between">
+                    <div className="flex flex-col md:flex-row items-center group-hover:scale-105 lg:group-hover:scale-102 transition-all duration-500 justify-between">
                         <div className="flex items-center gap-4">
                             <div className="w-14 h-14 rounded-full text-[#56CDF5] bg-[#5678BE] flex items-center justify-center font-semibold">
                                 <User />

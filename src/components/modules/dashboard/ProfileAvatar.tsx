@@ -8,7 +8,6 @@ import { User } from "lucide-react";
 
 export function ProfileAvatar() {
   const {data} = useUserInfoQuery();
-  console.log(data);
   return (
     <div className="flex flex-row flex-wrap items-center gap-12">
       <Avatar>

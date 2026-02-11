@@ -3,11 +3,12 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
+import Link from 'next/link';
 
 const CTASection: React.FC = () => {
   return (
     <section className=" px-4 sm:px-6 lg:px-8 py-20 bg-[#FBFCFC]">
-      <div className="container mx-auto">
+      <div className="container mx-auto overflow-hidden">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -66,20 +67,20 @@ const CTASection: React.FC = () => {
               transition={{ delay: 0.5, duration: 0.6 }}
               className="flex flex-col sm:flex-row gap-4 justify-center items-center"
             >
-              <a
-                href="/contact"
+              <Link
+                href="/consultation"
                 className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#64D3F8] text-[#002047] rounded-xl font-bold text-base sm:text-lg hover:bg-[#54cff8] transition-all duration-300 cursor-pointer"
               >
                 Book a Free Assessment
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-              </a>
+              </Link>
 
-              <a
+              <Link
                 href="/join-us"
                 className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-transparent text-white hover:text-[#002047] rounded-xl font-bold text-base sm:text-lg border-2 border-white/40 hover:bg-white/10 transition-all duration-300 backdrop-blur-sm cursor-pointer"
               >
                 Start Your Registration
-              </a>
+              </Link>
             </motion.div>
           </div>
         </motion.div>

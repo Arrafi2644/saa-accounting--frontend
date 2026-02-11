@@ -15,6 +15,7 @@ import CommonCTA from "@/components/modules/shared/cta/CommonCTA";
 import { serverFetch } from "@/lib/server-fetch";
 import { IService } from "@/types";
 import config from "@/config";
+import CommonCTA2 from "@/components/modules/shared/cta/CommonCTA2";
 
 // ✅ Build-time static params generation
 export async function generateStaticParams() {
@@ -99,7 +100,7 @@ export default async function ServiceDetailsPage({ params }: PageProps) {
   if (!service) notFound();
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen">
       <CommonHero
         badgeIcon={service.serviceIcon}
         badgeTitle={service.title}
@@ -119,11 +120,11 @@ export default async function ServiceDetailsPage({ params }: PageProps) {
 
       <FAQSection faqs={service.faqs} />
 
-      <CommonCTA
+      <CommonCTA2
         title="Ready to Simplify Your Business Accounting?"
         subTitle="Partner with our expert accountants and take control of your finances. Let's build a foundation for sustainable growth."
-        primaryBtnText="Start Your Registration"
-        secondaryBtnText="Book A Consultant"
+        primaryBtnText="Book A Consultant"
+        secondaryBtnText="Start Your Registration"
       />
     </div>
   );

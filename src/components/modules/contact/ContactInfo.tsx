@@ -9,9 +9,13 @@ export interface Props {
 export const ContactInfo = ({ contactInfo }: Props) => {
     return (
         <motion.div
-            initial={{ opacity: 0, x: 20 }}
+            initial={{ opacity: 0, x: 150 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
+            transition={{
+                duration: 1.5,
+                ease: "easeOut",
+              }}
             className="space-y-6">
             <div>
                 <h2 className="text-2xl font-bold text-[#002047] mb-3">

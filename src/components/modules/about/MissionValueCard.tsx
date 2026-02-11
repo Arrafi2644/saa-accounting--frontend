@@ -13,32 +13,43 @@ interface ValueCardProps {
 }
 
 export const MissionValueCard: React.FC<ValueCardProps> = ({ icon, title, description, index }) => {
+  // Alternating pattern: even indices (0, 2, 4, 6...): white text, #002047 background
+  // Odd indices (1, 3, 5, 7...): #002047 text, #001F3F background
+  const isWhiteTextCard = index % 2 === 0;
+
+  const cardBgColor = isWhiteTextCard ? 'bg-[#002047]' : 'bg-[#65D0F8]';
+  const titleTextColor = isWhiteTextCard ? 'text-white' : 'text-[#002047]';
+  const descriptionTextColor = isWhiteTextCard ? 'text-white' : 'text-[#002047]';
+  const borderColor = isWhiteTextCard ? 'border-white' : 'border-[#002047]';
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{
-        delay: index * 0.1,
-        duration: 0.5,
-        y: { delay: 0.5, duration: 0.3, ease: 'easeOut' },
-      }}
-      className="p-8 rounded-xl border text-center bg-[#9177770f] border-[#00204745] group flex flex-col items-center justify-center h-full"
+    initial={{ opacity: 0, y: 70 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{
+      duration: 1,
+      delay: index * 0.2,
+    }}
+      className={`p-10 md:p-6 lg:p-10 rounded-xl  border-2 text-center ${cardBgColor}  border-[#00204745] hover:shadow-[0_0_20px_#6DCFFA] group  h-full group`}
     >
+      <div className='group-hover:scale-103 transition-all duration-500 flex flex-col items-center justify-center'>
+
       {/* Icon Container */}
-      <div className="w-16 h-16 bg-linear-to-br from-[#DBE0F0] to-[#DDF3FB]  rounded-2xl flex items-center justify-center mb-6 transition-transform duration-300">
-        <div className="text-[#4D5CAC]">{icon}</div>
+      <div className={`p-4 group-hover:scale-110 group-hover:rounded-2xl transition-all duration-300  bg-transparent border-2 ${borderColor} transition-all duration-500  rounded-2xl flex items-center justify-center mb-6`}>
+        <div className={titleTextColor}>{icon}</div>
       </div>
 
       {/* Title */}
-      <h3 className="text-xl font-bold text-[#1a3a52] mb-4 transition-colors">
+      <h3 className={`text-xl font-bold ${titleTextColor} mb-4 transition-colors`}>
         {title}
       </h3>
 
       {/* Description */}
-      <p className="text-[#65758b] text-base leading-relaxed">
+      <p className={`${descriptionTextColor} text-base leading-relaxed`}>
         {description}
       </p>
+      </div>
     </motion.div>
   );
 };

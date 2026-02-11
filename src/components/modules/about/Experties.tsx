@@ -12,30 +12,44 @@ interface ExpertiseItemProps {
 export const Expertise: React.FC<ExpertiseItemProps> = ({ title, index }) => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      whileHover={{ y: -8 }}
-      transition={{
-        delay: index * 0.1,
-        duration: 0.5,
-        y: { delay: 0.5, duration: 0.3, ease: 'easeOut' },
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, margin: "-100px" }}
+      whileHover={{
+        y: -6,
+        transition: { type: "spring", stiffness: 200, damping: 20 }
       }}
-      className="bg-[#1a3550] p-6 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-[#2a4a68] group flex items-center gap-4"
+      variants={{
+        hidden: { opacity: 0, y: 150 },
+        show: {
+          opacity: 1,
+          y: 0,
+          transition: {
+            delay: index * 0.2,
+            duration: 1,
+            type: "spring",
+            stiffness: 80,
+            damping: 20,
+          },
+        },
+      }}
+      className=" "
     >
-      {/* Icon */}
-      <div className="shrink-0">
-        <CircleCheckBig
-          size={28} 
-          className="text-[#5dbadb] transition-transform duration-300" 
-          strokeWidth={2}
-        />
-      </div>
+      <div className='bg-[#1a3550] border-2 hover:border-[#5dbadb] p-6 h-full rounded-xl shadow-md hover:shadow-2xl transition-all duration-300  border-[#2a4a68] group flex items-center gap-4'>
 
-      {/* Title */}
-      <span className="text-base font-semibold text-white transition-colors">
-        {title}
-      </span>
+
+        <div className="shrink-0">
+          <CircleCheckBig
+            size={28}
+            strokeWidth={2}
+            className="text-[#5dbadb] transition-transform duration-300 group-hover:scale-110"
+          />
+        </div>
+
+        <span className="text-base font-semibold text-white">{title}</span>
+      </div>
     </motion.div>
+
+
   );
 };

@@ -100,19 +100,21 @@ type Props = {
   children: ReactNode;
   delay?: number;
   duration?: number;
+  color?: string;
 };
 
 export default function GlassGlace({
   children,
   delay = 0.4,
   duration = 5,
+  color = '#53C9F4',
 }: Props) {
   return (
     <div className="relative inline-flex overflow-hidden isolate rounded-full ">
       <motion.span
         initial={{ x: -70, opacity: 0 }}
         animate={{
-          x: [-70, -30, 250, 250],
+          x: [-70, -30, 295, 295],
           opacity: [0, 1, 1, 0],
           skewX: -30,
         }}
@@ -122,16 +124,25 @@ export default function GlassGlace({
           ease: "easeInOut",
           times: [0, 1, 1],
         }}
-        className="
+        style={{
+          background: `linear-gradient(
+      90deg,
+      transparent,
+      ${color},
+      transparent
+    )`,
+        }}
+        className={`
           pointer-events-none
           absolute h-full top-0 left-0
           w-6
           bg-linear-to-r
-          from-transparent via-[#53C9F4] to-transparent
+          from-transparent via-[${color}] to-transparent
           z-20
           rounded-full
           
-        "
+        `}
+
       />
 
       <div className="relative z-0">
@@ -152,7 +163,7 @@ export const GlaceGlaceForTagline = ({
       className="relative inline-flex overflow-hidden isolate rounded-full"
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true}}
+      viewport={{ once: true }}
     >
       <motion.span
         variants={{
@@ -161,8 +172,8 @@ export const GlaceGlaceForTagline = ({
             opacity: 0,
           },
           visible: {
-            x: [ -70, -30, 250, 250 ],
-            opacity: [ 0, 1, 1, 0 ],
+            x: [-70, -30, 250, 250],
+            opacity: [0, 1, 1, 0],
             skewX: -30,
             transition: {
               duration,

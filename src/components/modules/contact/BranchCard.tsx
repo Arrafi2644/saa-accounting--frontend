@@ -13,15 +13,18 @@ interface BranchCardProps {
 export const BranchCard: React.FC<BranchCardProps> = ({ icon,backgroundColor, title, content, delay = 0 }) => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay }}
-      whileHover={{ y: -5, transition: { duration: 0.3 } }}
-      className="bg-white border hover:border-[#AAE6FA] rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow"
+    initial={{ opacity: 0, y: 70 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{
+      duration: 1,
+      delay: delay
+    }}
+      className="bg-white border-2  hover:border-[#AAE6FA] rounded-lg p-6 group hover:shadow-[0_0_20px_#CBEEFB] transition-all duration-500 hover:scale-102"
     >
       <div className="flex items-start gap-4">
        
-         <div  className={`shrink-0 w-14 h-14 bg-[${backgroundColor}] rounded-lg flex items-center justify-center`}>
+         <div  className={`shrink-0 w-14 h-14 bg-[${backgroundColor}] rounded-lg flex items-center justify-center group-hover:scale-110 transition-all duration-500`}>
           {icon}
          </div>
 

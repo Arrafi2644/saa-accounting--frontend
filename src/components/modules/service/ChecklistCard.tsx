@@ -30,14 +30,14 @@ const ChecklistCard:React.FC<ChecklistProps> = ({checklistItems}) => {
           </div>
 
           {/* Checklist Items */}
-          <div className="space-y-4 mb-8">
+          <div className="space-y-4 mb-8 ">
             {checklistItems.map((item, index) => (
-              <div key={index} className="flex items-start gap-3 bg-[#F8F9FA] p-4 rounded-lg">
+              <div key={index} className="flex items-start gap-3 group bg-[#F8F9FA] p-4 lg:p-6 rounded-lg">
                 {/* <CircleCheckBig size={18} className=" text-[#53C9F4] shrink-0 mt-0.5" /> */}
                           <DynamicLucideIcon
                             iconName={item.icon}
                             size={20}
-                            className="text-[#53C9F4] mt-0.5 "
+                            className="text-[#53C9F4] mt-0.5 group-hover:scale-110 transition-all duration-500 "
                           />
                 <p className="text-gray-600 text-base leading-relaxed">
                   {item.title}

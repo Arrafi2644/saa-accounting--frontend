@@ -1,9 +1,9 @@
 
 import CommonHero from "@/components/modules/shared/commonHero/CommonHero";
 import ServiceCatalog from "@/components/modules/services/ServiceCatelog";
-import CommonCTA from "@/components/modules/shared/cta/CommonCTA";
 import { Metadata } from "next";
 import { serverFetch } from "@/lib/server-fetch";
+import CommonCTA2 from "@/components/modules/shared/cta/CommonCTA2";
 
 export async function generateMetadata(): Promise<Metadata> {
   const res = await serverFetch.get("/seo/resources", ["SEOS"]);
@@ -41,7 +41,7 @@ export default async function ServicesPage() {
   const services = servicesResponse.data;
 
   return (
-    <div className="min-h-screen bg-slate-50 font-sans">
+    <div className="min-h-screen  font-sans">
       <CommonHero
         badgeTitle="Professional Accounting Services"
         title="More Than Accountants: Your Trusted Partners in Business Growth"
@@ -50,7 +50,7 @@ export default async function ServicesPage() {
 
       <ServiceCatalog services={services} />
 
-      <CommonCTA
+      <CommonCTA2
         badgeTitle="Free Consultation"
         title="Not Sure Which Service is Right for You?"
         subTitle="Our team will assess your needs and recommend the perfect solution for your business."
