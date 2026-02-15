@@ -47,7 +47,9 @@ import FormSubmissionSuccess from "./FormSubmissionSuccess";
 const businessFormSchema = z.object({
     businessName: z.string().min(1, "Business name is required"),
     directorsAndShareholders: z.string().min(1, "This field is required"),
-    irdNumber: z.string().min(8, "IRD number must be 8-9 digits"),
+    irdNumber: z.string()
+        .min(8, "IRD number must be at least 8 digits")
+        .max(9, "IRD number cannot be more than 9 digits"),
     fullName: z.string().min(2, "Full name is required"),
     phoneNumber: z.string().min(1, "Phone number is required"),
     emailAddress: z.string().email("Invalid email address"),
@@ -547,7 +549,7 @@ export default function JoinUsForm() {
                                 {/* Submit Button */}
                                 <Button
                                     type="submit"
-                                    
+
                                     className="w-full bg-[#4D5CAC] hover:bg-[#4D5CAC]/93 transition-all duration-500 hover:scale-99 cursor-pointer text-white py-6 text-base font-medium rounded-lg shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
                                     {isSubmitting ? <Spinner /> : <Shield className="mr-2 h-5 w-5" />}

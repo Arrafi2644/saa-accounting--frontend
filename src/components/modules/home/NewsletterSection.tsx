@@ -68,8 +68,8 @@ export const NewsletterSection: React.FC<NewsletterSectionProps> = ({
   };
 
   return (
-    <section className="w-full bg-[#0a2540] -mt-0.5 py-12 px-4 sm:px-6">
-      <div className="container mx-auto overflow-hidden">
+    <section className="w-full bg-[#0a2540] -mt-0.5 ">
+      <div className="container mx-auto overflow-hidden py-12 px-4 sm:px-6">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 lg:gap-8">
           {/* Left content */}
           <motion.div

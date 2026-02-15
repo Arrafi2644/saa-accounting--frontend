@@ -61,7 +61,7 @@ const CTASection = () => {
               <GradientButton>Start Your Registration</GradientButton>
             </Link>
       
-            <Link href="/contact">
+            <Link href="/services">
               <GradientButton variant="outline">Read Our Services</GradientButton>
             </Link>
           </motion.div>

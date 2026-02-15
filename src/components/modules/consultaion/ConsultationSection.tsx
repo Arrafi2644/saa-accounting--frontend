@@ -11,7 +11,7 @@ interface ConsultationOption {
   id: string;
   title: string;
   icon: React.ReactNode;
-  schedule: string;
+  schedule?: string;
   location?: string;
   description: string;
   quote: string;
@@ -37,7 +37,7 @@ const consultationOptions: ConsultationOption[] = [
     id: "zoom",
     title: "Zoom Online",
     icon: <Video className="w-6 h-6 text-white" />,
-    schedule: "Wednesdays Only | 9:00 AM – 5:00 PM",
+    schedule: " 9:00 AM – 5:00 PM",
     description:
       "Perfect for detailed discussions, software demonstrations, and document reviews.",
     quote: "Screen-sharing and deep software training.",
@@ -49,8 +49,6 @@ const consultationOptions: ConsultationOption[] = [
     id: "face-to-face",
     title: "Face-to-Face",
     icon: <MapPin className="w-6 h-6 text-white" />,
-    schedule: "Thursdays Only",
-    location: "Auckland Office / Maraetai",
     description:
       "Meet in person for comprehensive business discussions and strategic planning sessions.",
     quote: "Personal connection and detailed planning.",
@@ -86,7 +84,7 @@ const ConsultationSection = () => {
 
   return (
     <section className="w-full bg-white py-20 xl:py-28 px-4 sm:px-6 lg:px-8">
-      <div className="container mx-auto">
+      <div className="container mx-auto overflow-hidden">
         {/* Header */}
         <AnimatedSectionHeader
           tag="YOUR PREFERRED METHOD"
@@ -148,8 +146,8 @@ const ConsultationSection = () => {
 
                   {/* Schedule */}
                   <div className="flex items-start gap-2 text-[#6970C0] mb-2">
-                    <Clock className="w-4 h-4 shrink-0 text-[#6970C0]" />
-                    <p className="text-sm font-medium">{option.schedule}</p>
+                   {option?.schedule && <Clock className="w-4 h-4 shrink-0 text-[#6970C0]" />} 
+                    <p className="text-sm font-medium">{option?.schedule}</p>
                   </div>
 
                   {/* Location (if exists) */}

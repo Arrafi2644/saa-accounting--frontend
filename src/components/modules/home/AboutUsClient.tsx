@@ -14,6 +14,7 @@ import { GlaceGlaceForTagline } from "./HeroTextAnimation";
 import aboutImg1 from "../../../../public/assets/about-us-1.webp"
 import aboutImg2 from "../../../../public/assets/saa-about-2.webp"
 import Image from "next/image";
+import Link from "next/link";
 
 const features = [
   {
@@ -239,7 +240,9 @@ export default function AboutUsSection() {
               transition={{ duration: 1.3, delay: 0.8 }}
               className="pt-4 flex items-center gap-4"
             >
+              <Link href="/about" className="inline-block">
               <GradientButton>More About</GradientButton>
+              </Link>
 
             </motion.div>
           </motion.div>
