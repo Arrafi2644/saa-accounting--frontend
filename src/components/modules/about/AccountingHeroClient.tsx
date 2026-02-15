@@ -3,7 +3,8 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import sideImage from "../../../../public/assets/about-us.webp";
+// import sideImage from "../../../../public/assets/about-us.webp";
+import sideImage from "../../../../public/assets/accounting-hero-section.webp";
 
 const staggerDelays = {
   image: 0.2,

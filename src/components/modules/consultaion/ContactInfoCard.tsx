@@ -52,13 +52,13 @@ export default function ContactInfoCard({ contactInfo }: Props) {
                             </div>
                             <div className="text-white">
                                 <p className="text-base sm:text-lg font-medium leading-relaxed">
-                                    100 Maraetai School Road
+                                    Westfield Manukau, Shop 57
                                 </p>
                                 <p className="text-base sm:text-lg font-medium leading-relaxed">
-                                    Maraetai 2018
+                                    1 Leyton Way
                                 </p>
                                 <p className="text-base sm:text-lg font-medium leading-relaxed">
-                                    New Zealand
+                                    Auckland, New Zealand
                                 </p>
                             </div>
                         </div>
