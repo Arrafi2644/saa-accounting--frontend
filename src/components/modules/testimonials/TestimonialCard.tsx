@@ -37,12 +37,12 @@ export const TestimonialCard: React.FC<TestimonialCardProps> = ({ index, testimo
 
         {/* partnershipLabel */}
         <p className="text-cyan-400 px-4 py-2 rounded-full inline-block bg-[#EEFAFE] font-semibold text-base mb-5">
-          {testimonial.partnershipLabel}
+          {testimonial?.partnershipLabel}
         </p>
 
         {/* Rating */}
         <div className="flex gap-1 mb-4 ">
-          {[...Array(testimonial.rating)].map((_, i) => (
+          {[...Array(testimonial?.rating)].map((_, i) => (
             <Star
               key={i}
               className="w-4 h-4 group-hover:scale-102 transition-all duration-500 fill-cyan-400 text-cyan-400"
@@ -52,7 +52,7 @@ export const TestimonialCard: React.FC<TestimonialCardProps> = ({ index, testimo
 
         {/* Content */}
         <p className="text-gray-500 font-medium text-sm leading-relaxed mb-6 line-clamp-4">
-          {testimonial.content}
+          {testimonial?.content}
         </p>
 
         {/* Client Info */}
@@ -64,10 +64,10 @@ export const TestimonialCard: React.FC<TestimonialCardProps> = ({ index, testimo
           </div>
           <div className="flex-1 min-w-0 ">
             <p className="font-semibold text-gray-900 text-sm truncate">
-              {testimonial.clientName}
+              {testimonial?.clientName}
             </p>
             <p className="text-xs text-[#4D5CAC] font-medium truncate">
-              {testimonial.companyName}
+              {testimonial?.companyName}
             </p>
           </div>
         </div>
@@ -76,11 +76,11 @@ export const TestimonialCard: React.FC<TestimonialCardProps> = ({ index, testimo
         <div className="flex items-center justify-between text-xs text-gray-500 pt-4 border-t border-gray-100">
           <div className="flex items-center gap-1">
             <MapPin className="w-3.5 h-3.5" />
-            <span>{testimonial.location}</span>
+            <span>{testimonial?.location}</span>
           </div>
           <div className="flex items-center gap-1">
             <Building2 className="w-3.5 h-3.5" />
-            <span>{testimonial.industry}</span>
+            <span>{testimonial?.industry}</span>
           </div>
         </div>
       </CardContent>

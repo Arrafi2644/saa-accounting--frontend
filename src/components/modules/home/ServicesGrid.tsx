@@ -44,7 +44,7 @@ export function ServicesGrid({ services }: Props) {
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 h-full">
-          {services.map((service: IService, index: number) => (
+          {services?.slice(0, 6).map((service: IService, index: number) => (
             <ServiceCard
               key={service._id}
               service={service}

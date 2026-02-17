@@ -85,7 +85,7 @@ const TestimonialSection: React.FC<testimonialsSectionProps> = ({ testimonials }
         >
           <AnimatePresence mode="wait">
             <TestimonialSlideCard
-              key={testimonials[currentIndex]._id}
+              key={testimonials[currentIndex]?._id}
               testimonial={testimonials[currentIndex]}
             />
           </AnimatePresence>

@@ -23,7 +23,7 @@ export const TestimonialSlideCard: React.FC<{ testimonial: ITestimonial }> = ({
                 <CardContent className="p-8 md:p-12">
                     {/* Star Rating */}
                     <div className="flex gap-1 mb-6">
-                        {[...Array(testimonial.rating)].map((_, i) => (
+                        {[...Array(testimonial?.rating)]?.map((_, i) => (
                             <Star
                                 key={i}
                                 className="w-5 h-5 fill-yellow-400 text-yellow-400"

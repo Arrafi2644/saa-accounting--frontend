@@ -11,7 +11,7 @@ export function ProfileAvatar() {
   return (
     <div className="flex flex-row flex-wrap items-center gap-12">
       <Avatar>
-        <AvatarImage className="object-cover" src={data?.data.email? data?.data.picture :`https://github.com/shadcn.png`} alt="@shadcn" />
+        {/* <AvatarImage className="object-cover" src={data?.data.email? data?.data.picture :`https://github.com/shadcn.png`} alt="@shadcn" /> */}
         <AvatarFallback><User/></AvatarFallback>
       </Avatar>
     </div>
