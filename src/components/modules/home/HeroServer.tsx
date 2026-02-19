@@ -29,7 +29,7 @@ export function HeroServer() {
               <div
                 className="inline-flex max-w-3xl items-center gap-2
         px-4 py-2 rounded-full
-        bg-blue-500/10 border border-blue-400/20
+        bg-blue-500/10 border-2 border-blue-100  lg:border-blue-400/20
         backdrop-blur-sm overflow-hidden
       "
               >

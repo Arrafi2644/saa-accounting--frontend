@@ -36,7 +36,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function ServicesPage() {
-  const res = await serverFetch.get("/service", ["SERVICES"]);
+  const res = await serverFetch.get("/service?limit=100", ["SERVICES"]);
   const servicesResponse = await res.json();
   const services = servicesResponse.data;
 

@@ -24,14 +24,14 @@ export const Footer = ({ siteInfo, services }: Props) => {
             viewport={{ once: true }}
             transition={{ duration: 1.3, delay: 0.1 }}
           >
-            <div className="space-y-6">
+            <div >
               <div className="flex items-center gap-3">
                 <Link href="/">
                   <Image
                     src={siteInfo.footerLogo || siteInfo.mainLogo}
                     alt={`${siteInfo.siteTitle} Logo`}
-                    width={120}
-                    height={120}
+                    width={140}
+                    height={140}
                     priority
                     className="hover:scale-105 transition-all duration-300"
                   />
@@ -43,7 +43,7 @@ export const Footer = ({ siteInfo, services }: Props) => {
               </p>
 
               {/* Social Links */}
-              <div className="flex gap-3">
+              <div className="flex gap-3 mt-6 lg:mt-8">
                 {siteInfo.linkedin && (
                   <div className="bg-[#1a3a52] hover:bg-[#11436B] p-3 hover:scale-110 transition-all duration-300 rounded-lg ">
                     <a

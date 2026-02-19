@@ -41,7 +41,7 @@ const TestimonialsPage = async () => {
     const FeaturedTestimonialResponse = await featuredTestimonialRes.json()
     const featuredTestimonials = FeaturedTestimonialResponse.data;
 
-    const res = await serverFetch.get("/testimonial?isApproved=true&limit=60", ["TESTIMONIALS"])
+    const res = await serverFetch.get("/testimonial?isApproved=true&limit=100", ["TESTIMONIALS"])
     const testimonialResponse = await res.json()
     const testimonials = testimonialResponse.data;
 
