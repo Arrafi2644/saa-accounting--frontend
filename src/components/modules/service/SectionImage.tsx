@@ -17,7 +17,7 @@ const SectionImage = ({ overview }: ServiceOverviewProps) => {
     x: { duration: 1, delay: 0.2, ease: "easeOut" },
     scale: { duration: 0.5, ease: "easeOut" },
   }}
-  className="relative h-[400px] bg-gray-50 rounded-2xl overflow-hidden shadow-xl"
+  className="relative h-44 md:h-[400px] bg-gray-50 rounded-2xl overflow-hidden shadow-xl"
 >
   <Image
     src={overview.serviceImage as string}
